@@ -1,13 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:gifty/src/config/appTheme.dart';
-import 'package:gifty/src/controllers/firebaseController.dart';
+
 import 'package:gifty/src/controllers/orderController.dart';
-import 'package:intl/intl.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:gifty/src/models/addressModel.dart';
 
 class Shipping extends StatefulWidget {
   @override

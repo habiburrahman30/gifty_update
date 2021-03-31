@@ -11,8 +11,18 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-class LoginPage extends GetWidget<FirebaseController> {
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final _authC = Get.put(AuthController());
+  @override
+  void dispose() {
+    _authC.clearDispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,238 +64,245 @@ class LoginPage extends GetWidget<FirebaseController> {
                   SizedBox(
                     height: 50,
                   ),
-                  Obx(
-                    () => Container(
-                      margin: EdgeInsets.symmetric(
-                        horizontal: 20,
-                      ),
-                      child: Column(
-                        children: [
-                          TextField(
-                            onChanged: _authC.emailLogin,
-                            decoration: InputDecoration(
-                              errorText: _authC.emailLogin.value.isEmail ||
-                                      _authC.emailLogin.value.isEmpty
-                                  ? null
-                                  : 'Please enter valid email',
-                              filled: true,
-                              hintText: 'Email',
-                              suffixIcon: Icon(Icons.person),
-                              contentPadding:
-                                  EdgeInsets.fromLTRB(20, true ? 25 : 5, 0, 0),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(25.7),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          TextField(
-                            onChanged: _authC.passwordLogin,
-                            decoration: InputDecoration(
-                              errorText: _authC.passwordLogin.value.length >=
-                                          6 ||
-                                      _authC.passwordLogin.value.isEmpty
-                                  ? null
-                                  : 'Password should be at least 6 characters',
-                              filled: true,
-                              hintText: 'Password',
-                              suffixIcon: Icon(Icons.lock),
-                              contentPadding: EdgeInsets.fromLTRB(20, 5, 0, 0),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(25.7),
-                              ),
-                            ),
-                            obscureText: true,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                child: Row(
-                                  children: [
-                                    Transform.scale(
-                                      scale: .7,
-                                      child: CupertinoSwitch(
-                                        activeColor: Color(0xFF4F8188),
-                                        value: false,
-                                        onChanged: (bool value) {},
-                                      ),
-                                    ),
-                                    Text(
-                                      'Rememberme',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  Get.to(
-                                    ForgotPassword(),
-                                  );
-                                },
-                                child: Text(
-                                  'Forgot Password ?',
-                                  style: TextStyle(
-                                    fontSize: 14,
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                      horizontal: 20,
+                    ),
+                    child: Column(
+                      children: [
+                        StreamBuilder<String>(
+                            stream: _authC.emailLoginStream,
+                            builder: (context, snapshot) {
+                              return TextField(
+                                onChanged: _authC.changeEmailLogin,
+                                decoration: InputDecoration(
+                                  errorText:
+                                      snapshot.hasError ? snapshot.error : null,
+                                  filled: true,
+                                  hintText: 'Email',
+                                  suffixIcon: Icon(Icons.person),
+                                  contentPadding: EdgeInsets.fromLTRB(
+                                      20, true ? 25 : 5, 0, 0),
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius: BorderRadius.circular(25.7),
                                   ),
                                 ),
+                              );
+                            }),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        StreamBuilder<String>(
+                            stream: _authC.passwordLoginStream,
+                            builder: (context, snapshot) {
+                              return TextField(
+                                onChanged: _authC.changePasswordLogin,
+                                decoration: InputDecoration(
+                                  errorText:
+                                      snapshot.hasError ? snapshot.error : null,
+                                  filled: true,
+                                  hintText: 'Password',
+                                  suffixIcon: Icon(Icons.lock),
+                                  contentPadding:
+                                      EdgeInsets.fromLTRB(20, 5, 0, 0),
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius: BorderRadius.circular(25.7),
+                                  ),
+                                ),
+                                obscureText: true,
+                              );
+                            }),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              child: Row(
+                                children: [
+                                  Transform.scale(
+                                    scale: .7,
+                                    child: CupertinoSwitch(
+                                      activeColor: Color(0xFF4F8188),
+                                      value: false,
+                                      onChanged: (bool value) {},
+                                    ),
+                                  ),
+                                  Text(
+                                    'Rememberme',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Get.to(
+                                  ForgotPassword(),
+                                );
+                              },
+                              child: Text(
+                                'Forgot Password ?',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.6),
+                                offset: Offset(0, 15),
+                                blurRadius: 30.0,
                               )
                             ],
                           ),
-                          SizedBox(
-                            height: 30,
+                          child: StreamBuilder<bool>(
+                            initialData: null,
+                            stream: _authC.loginButtonValid,
+                            builder: (context, snapshot) {
+                              return FlatButton(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 40,
+                                  vertical: 10,
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(40),
+                                ),
+                                disabledColor:
+                                    Color(0xFF4F8188).withOpacity(.2),
+                                color: Color(0xFF4F8188),
+                                child: Container(
+                                  width: 70.0,
+                                  child: Center(
+                                    child: Text(
+                                      '${snapshot.data}',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                onPressed: snapshot.hasData && snapshot.data
+                                    ? () {}
+                                    : null,
+                              );
+                            },
                           ),
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.6),
-                                  offset: Offset(0, 15),
-                                  blurRadius: 30.0,
-                                )
-                              ],
+                        ),
+                        SizedBox(
+                          height: 40,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Or connect using',
+                              style: TextStyle(
+                                fontSize: 18,
+                                //fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            child: FlatButton(
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            FlatButton(
                               padding: EdgeInsets.symmetric(
-                                horizontal: 40,
+                                horizontal: 25,
                                 vertical: 10,
                               ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(40),
+                              shape: CircleBorder(),
+                              color: Color(0xFF3b5998),
+                              child: FaIcon(
+                                FontAwesomeIcons.facebook,
+                                color: Colors.white,
                               ),
-                              disabledColor: Color(0xFF4F8188).withOpacity(.2),
-                              color: Color(0xFF4F8188),
-                              child: Container(
-                                width: 70.0,
-                                child: Center(
-                                  child: Text(
-                                    'Login',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              onPressed:
-                                  _authC.passwordLogin.value.length > 5 &&
-                                          _authC.emailLogin.value.isEmail
-                                      ? () => _authC.login()
-                                      : null,
+                              onPressed: () {},
                             ),
-                          ),
-                          SizedBox(
-                            height: 40,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Or connect using',
+                            FlatButton(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 25,
+                                vertical: 10,
+                              ),
+                              shape: CircleBorder(),
+                              color: Color(0xFFDB4437),
+                              child: FaIcon(
+                                FontAwesomeIcons.google,
+                                color: Colors.white,
+                              ),
+                              onPressed: () {},
+                            ),
+                            FlatButton(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 25,
+                                vertical: 10,
+                              ),
+                              shape: CircleBorder(),
+                              color: Color(0xFF4F8188),
+                              child: FaIcon(
+                                FontAwesomeIcons.phone,
+                                color: Colors.white,
+                              ),
+                              onPressed: () {
+                                Get.to(
+                                  SignInWithPhone(),
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 70,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Don't have an account?",
+                              style: TextStyle(
+                                fontSize: 18,
+                              ),
+                            ),
+                            FlatButton(
+                              padding: EdgeInsets.only(right: 20),
+                              highlightColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              splashColor: Colors.transparent,
+                              onPressed: () {
+                                Get.to(
+                                  SignUpPage(),
+                                );
+                              },
+                              child: Text(
+                                'Sign Up',
                                 style: TextStyle(
-                                  fontSize: 18,
-                                  //fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              FlatButton(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 25,
-                                  vertical: 10,
-                                ),
-                                shape: CircleBorder(),
-                                color: Color(0xFF3b5998),
-                                child: FaIcon(
-                                  FontAwesomeIcons.facebook,
-                                  color: Colors.white,
-                                ),
-                                onPressed: () {},
-                              ),
-                              FlatButton(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 25,
-                                  vertical: 10,
-                                ),
-                                shape: CircleBorder(),
-                                color: Color(0xFFDB4437),
-                                child: FaIcon(
-                                  FontAwesomeIcons.google,
-                                  color: Colors.white,
-                                ),
-                                onPressed: () {},
-                              ),
-                              FlatButton(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 25,
-                                  vertical: 10,
-                                ),
-                                shape: CircleBorder(),
-                                color: Color(0xFF4F8188),
-                                child: FaIcon(
-                                  FontAwesomeIcons.phone,
-                                  color: Colors.white,
-                                ),
-                                onPressed: () {
-                                  Get.to(
-                                    SignInWithPhone(),
-                                  );
-                                },
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 70,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Don't have an account?",
-                                style: TextStyle(
+                                  color: Colors.blueAccent,
                                   fontSize: 18,
                                 ),
                               ),
-                              FlatButton(
-                                padding: EdgeInsets.only(right: 20),
-                                highlightColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                splashColor: Colors.transparent,
-                                onPressed: () {
-                                  Get.to(
-                                    SignUpPage(),
-                                  );
-                                },
-                                child: Text(
-                                  'Sign Up',
-                                  style: TextStyle(
-                                    color: Colors.blueAccent,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                        ],
-                      ),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                      ],
                     ),
                   ),
                 ],
