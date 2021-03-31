@@ -2,6 +2,7 @@ import 'package:gifty/src/controllers/cartController.dart';
 import 'package:gifty/src/pages/checkoutPage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gifty/src/pages/paymentPage.dart';
 
 class CartPage extends StatelessWidget {
   final cartController = Get.put(CartController());
@@ -97,59 +98,62 @@ class CartPage extends StatelessWidget {
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
-                                                    Container(
-                                                      width: 220,
-                                                      padding: EdgeInsets.only(
-                                                        left: 35,
-                                                      ),
-                                                      child: Column(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .start,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          SizedBox(
-                                                            height: 10,
-                                                          ),
-                                                          Text(
-                                                            '${item.title}',
-                                                            style: TextStyle(
-                                                              fontSize: 18,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
+                                                    Expanded(
+                                                      child: Container(
+                                                        // width: 220,
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                          left: 35,
+                                                        ),
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            SizedBox(
+                                                              height: 10,
                                                             ),
-                                                            maxLines: 2,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                          ),
-                                                          SizedBox(
-                                                            height: 10,
-                                                          ),
-                                                          Text(
-                                                            '\৳${item.price}',
-                                                            style: TextStyle(
-                                                              fontSize: 18,
-                                                              color: Color(
-                                                                  0xFFBED5B9),
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
+                                                            Text(
+                                                              '${item.title}',
+                                                              style: TextStyle(
+                                                                fontSize: 18,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                              maxLines: 2,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
                                                             ),
-                                                          ),
-                                                          SizedBox(
-                                                            height: 5,
-                                                          ),
-                                                          Text(
-                                                            '${item.quantity}x',
-                                                            style: TextStyle(
-                                                              fontSize: 16,
+                                                            SizedBox(
+                                                              height: 10,
                                                             ),
-                                                          ),
-                                                        ],
+                                                            Text(
+                                                              '\৳${item.price}',
+                                                              style: TextStyle(
+                                                                fontSize: 18,
+                                                                color: Color(
+                                                                    0xFFBED5B9),
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                              height: 5,
+                                                            ),
+                                                            Text(
+                                                              '${item.quantity}x',
+                                                              style: TextStyle(
+                                                                fontSize: 16,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
                                                     Column(
@@ -314,7 +318,7 @@ class CartPage extends StatelessWidget {
                                     ),
                                     onPressed: () {
                                       Get.to(
-                                        CheckoutPage(),
+                                        PaymentPage(),
                                       );
                                     },
                                   )

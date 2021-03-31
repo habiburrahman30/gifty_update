@@ -46,7 +46,7 @@ class FirebaseController extends GetxController {
 
   FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Rx<User> _firebaseUser = Rx<User>();
+  final _firebaseUser = Rx<User>(null);
 
   String get user => _firebaseUser.value?.email;
 
@@ -56,66 +56,6 @@ class FirebaseController extends GetxController {
 
     print(" Auth Change :   ${_auth.currentUser}");
     super.onInit();
-  }
-
-  // function to createuser, login and sign out user
-  /// Email Sign Up.
-  /// [SignUp With Email],
-  /// Email Sign Up.
-
-  void createUser(
-      String username, String fullname, String email, String password) async {
-    try {
-      final user = (await _auth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      ))
-          .user;
-
-      if (user != null) {
-        Map<String, dynamic> userdata = {
-          'uid': user.uid,
-          "userName": username,
-          "fullName": fullname,
-          "email": email,
-          "imgUrl": null,
-          "phone": null,
-          "address": null,
-        };
-        await FirebaseFirestore.instance.collection("users").add(userdata);
-        Get.offAll(HomePage());
-      } else {
-        Get.snackbar("Error while creating account ", '');
-      }
-    } catch (e) {
-      Get.snackbar("Unknown error", '');
-    }
-  }
-
-  /// Email SignIn Function.
-  /// [SignIn With Email],
-  /// Email SignIn.
-
-  void login(String email, String password) async {
-    await _auth
-        .signInWithEmailAndPassword(email: email, password: password)
-        .then((value) => Get.offAll(HomePage()))
-        .catchError(
-          (onError) => Get.snackbar(
-            "Error while sign in ",
-            onError.message,
-            backgroundColor: Colors.green[400],
-            colorText: Colors.white,
-          ),
-        );
-  }
-
-  /// Email sign Out Function.
-  /// [Email SignOut],
-  /// Email sign Out.
-
-  void signOut() async {
-    await _auth.signOut().then((value) => Get.offAll(LoginPage()));
   }
 
   /// Forgot Password Function.
@@ -134,11 +74,11 @@ class FirebaseController extends GetxController {
   /// [Get User Data],
   /// User data.
 
-  Stream<DocumentSnapshot> getUserData(collectionName) {
+  Future<DocumentSnapshot> getUserData(collectionName) {
     CollectionReference userData =
         FirebaseFirestore.instance.collection(collectionName);
     var cUser = _auth.currentUser;
-    return userData.doc(cUser.uid).snapshots();
+    return userData.doc(cUser.uid).get();
   }
 
   /// Update user data Function.

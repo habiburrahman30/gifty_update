@@ -1,17 +1,27 @@
 import 'package:flutter/cupertino.dart';
 
-class Address {
+class ReceiversAddress {
   String name;
-  String email;
   String phone;
   String address;
   String date;
 
-  Address({
+  ReceiversAddress({
     @required this.name,
-    @required this.email,
     @required this.phone,
     @required this.address,
     @required this.date,
   });
 }
+
+// class SenderAddress {
+//   String name;
+//   String email;
+//   String phone;
+
+//   SenderAddress({
+//     @required this.name,
+//     @required this.email,
+//     @required this.phone,
+//   });
+// }

@@ -5,14 +5,14 @@ import 'package:get/get.dart';
 import 'package:meta/meta.dart';
 
 class AddressController extends GetxController {
-  final allAddress = List<Address>().obs;
+  final allAddress = List<ReceiversAddress>().obs;
 
-  addAddress({@required Address address}) {
+  addAddress({@required ReceiversAddress address}) {
     allAddress.add(address);
 
     Get.snackbar(
       'Opps!!',
-      '${address.email} already exists in your address list',
+      '${address.name} already exists in your address list',
       icon: Icon(
         Icons.done_all,
         color: Colors.white,
@@ -21,6 +21,6 @@ class AddressController extends GetxController {
       backgroundColor: Colors.green[300],
       snackPosition: SnackPosition.TOP,
     );
-    print(address.email);
+    // print(address.email);
   }
 }

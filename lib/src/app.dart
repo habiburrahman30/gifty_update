@@ -1,8 +1,7 @@
-import 'package:gifty/src/GetXHelper/InstanceBinding.dart';
-import 'package:gifty/src/GetXHelper/isSignedIn.dart';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gifty/src/GetXHelper/InstanceBinding.dart';
+import 'package:gifty/src/GetXHelper/isSignedIn.dart';
 
 class App extends StatelessWidget {
   @override

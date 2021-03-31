@@ -1,5 +1,5 @@
 import 'package:gifty/src/components/bezierContainer.dart';
-import 'package:gifty/src/components/customInput.dart';
+
 import 'package:gifty/src/controllers/authController.dart';
 import 'package:gifty/src/controllers/firebaseController.dart';
 import 'package:gifty/src/pages/PhoneSignInPage.dart';
@@ -62,10 +62,10 @@ class LoginPage extends GetWidget<FirebaseController> {
                       child: Column(
                         children: [
                           TextField(
-                            onChanged: _authC.email,
+                            onChanged: _authC.emailLogin,
                             decoration: InputDecoration(
-                              errorText: _authC.email.value.isEmail ||
-                                      _authC.email.value.isEmpty
+                              errorText: _authC.emailLogin.value.isEmail ||
+                                      _authC.emailLogin.value.isEmpty
                                   ? null
                                   : 'Please enter valid email',
                               filled: true,
@@ -83,17 +83,17 @@ class LoginPage extends GetWidget<FirebaseController> {
                             height: 20,
                           ),
                           TextField(
-                            onChanged: _authC.password,
+                            onChanged: _authC.passwordLogin,
                             decoration: InputDecoration(
-                              errorText: _authC.password.value.length >= 6 ||
-                                      _authC.password.value.isEmpty
+                              errorText: _authC.passwordLogin.value.length >=
+                                          6 ||
+                                      _authC.passwordLogin.value.isEmpty
                                   ? null
                                   : 'Password should be at least 6 characters',
                               filled: true,
                               hintText: 'Password',
                               suffixIcon: Icon(Icons.lock),
-                              contentPadding:
-                                  EdgeInsets.fromLTRB(20, true ? 25 : 5, 0, 0),
+                              contentPadding: EdgeInsets.fromLTRB(20, 5, 0, 0),
                               border: OutlineInputBorder(
                                 borderSide: BorderSide.none,
                                 borderRadius: BorderRadius.circular(25.7),
@@ -161,7 +161,7 @@ class LoginPage extends GetWidget<FirebaseController> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(40),
                               ),
-                              disabledColor: Color(0xFF4F8188).withOpacity(.5),
+                              disabledColor: Color(0xFF4F8188).withOpacity(.2),
                               color: Color(0xFF4F8188),
                               child: Container(
                                 width: 70.0,
@@ -175,10 +175,11 @@ class LoginPage extends GetWidget<FirebaseController> {
                                   ),
                                 ),
                               ),
-                              onPressed: _authC.password.value.length >= 6 &&
-                                      _authC.email.value.isEmail
-                                  ? () => _authC.login()
-                                  : null,
+                              onPressed:
+                                  _authC.passwordLogin.value.length > 5 &&
+                                          _authC.emailLogin.value.isEmail
+                                      ? () => _authC.login()
+                                      : null,
                             ),
                           ),
                           SizedBox(

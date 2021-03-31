@@ -1,3 +1,4 @@
+import 'package:gifty/src/controllers/authController.dart';
 import 'package:gifty/src/controllers/firebaseController.dart';
 import 'package:gifty/src/pages/aboutgifty.dart';
 import 'package:gifty/src/pages/accountPage.dart';
@@ -11,6 +12,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class SerttingPage extends GetWidget<FirebaseController> {
+  final _authC = Get.put(AuthController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -307,7 +309,7 @@ class SerttingPage extends GetWidget<FirebaseController> {
                         Icons.keyboard_arrow_right,
                       ),
                       onTap: () {
-                        controller.signOut();
+                        _authC.signOut();
                       },
                     ),
                   ),

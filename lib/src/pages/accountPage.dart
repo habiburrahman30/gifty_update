@@ -5,7 +5,6 @@ import 'package:gifty/src/controllers/firebaseController.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 
 class AccountPage extends StatefulWidget {
   @override
@@ -300,92 +299,6 @@ class _AccountPageState extends State<AccountPage> {
                       color: Colors.blueAccent,
                     ),
                   ),
-                ),
-                StreamBuilder(
-                  stream: _firebaseController.getUserData('users'),
-                  builder: (BuildContext context, AsyncSnapshot snapshot) {
-                    final data = snapshot.data;
-
-                    if (!snapshot.hasData) {
-                      return CircularProgressIndicator();
-                    } else {
-                      return Column(
-                        children: [
-                          UserData(
-                            labelText: 'Name',
-                            titleText: '${data['firstName']}',
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          UserData(
-                            labelText: 'Email',
-                            titleText: '${data['email']}',
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          if (data['phone'] != null)
-                            UserData(
-                              labelText: 'Phone',
-                              titleText: '${data['phone']}',
-                            ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          if (data['address'] != null)
-                            Container(
-                              width: 370,
-                              padding: EdgeInsets.only(left: 18),
-                              decoration: BoxDecoration(
-                                color: Colors.grey[300],
-                                borderRadius: BorderRadius.circular(44),
-                                border: Border.all(
-                                  color: Colors.grey[400],
-                                  width: 1,
-                                ),
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        'Address:',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Container(
-                                    padding: EdgeInsets.only(
-                                      left: 15,
-                                    ),
-                                    child: Text(
-                                      '${data['address']}',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                ],
-                              ),
-                            ),
-                        ],
-                      );
-                    }
-                  },
                 ),
               ],
             ),
