@@ -4,41 +4,14 @@ import 'package:get/get.dart';
 import 'package:gifty/src/pages/homePage.dart';
 import 'package:gifty/src/pages/loginPage.dart';
 import 'package:gifty/src/validators/validator.dart';
-import 'package:rxdart/streams.dart';
-import 'package:rxdart/subjects.dart';
 
 class AuthController extends GetxController with Validator {
   final _auth = FirebaseAuth.instance;
 
 // for login
 
-  final _emailLogin = BehaviorSubject<String>();
-  final _passwordLogin = BehaviorSubject<String>();
-
-  Stream<String> get emailLoginStream =>
-      _emailLogin.stream.transform(validateEmail);
-
-  Stream<String> get passwordLoginStream =>
-      _passwordLogin.stream.transform(validatePassword);
-
-  Function(String) get changeEmailLogin => _emailLogin.sink.add;
-  Function(String) get changePasswordLogin => _passwordLogin.sink.add;
-
-  // -------------------------------
-
-  // button Validation
-  Stream<bool> get loginButtonValid => CombineLatestStream.combine2(
-        emailLoginStream,
-        passwordLoginStream,
-        (email, password) {
-          if (email == emailLoginStream &&
-              password == _passwordLogin.valueWrapper.value) {
-            return true;
-          } else {
-            return null;
-          }
-        },
-      );
+  final emailLogin = ''.obs;
+  final passwordLogin = ''.obs;
 
 // for registration
   final fullName = ''.obs;
@@ -49,12 +22,19 @@ class AuthController extends GetxController with Validator {
   // for Forgot Password
   final forgotPassword = ''.obs;
 
+  bool loginButtonValidCheck() {
+    if (emailLogin.value.isEmail && passwordLogin.value.length >= 6) {
+      return true;
+    } else
+      return false;
+  }
+
   // -------------------------------
   void login() async {
     try {
       final authResult = await _auth.signInWithEmailAndPassword(
-        email: _emailLogin.valueWrapper.value,
-        password: _passwordLogin.valueWrapper.value,
+        email: emailLogin.value,
+        password: passwordLogin.value,
       );
 
       if (authResult != null) {
@@ -127,12 +107,5 @@ class AuthController extends GetxController with Validator {
     } catch (e) {
       Get.snackbar("Unknown error", '');
     }
-  }
-
-  clearDispose() {
-    _emailLogin.close();
-    _passwordLogin.close();
-
-    super.dispose();
   }
 }

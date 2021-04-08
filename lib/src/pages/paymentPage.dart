@@ -122,8 +122,114 @@ class PaymentPage extends StatelessWidget {
               );
             if (_orderC.step.value == 2)
               return Expanded(
-                child: Center(
-                  child: Text('Payment step'),
+                child: Column(
+                  children: [
+                    Center(
+                      child: Text('Payment step'),
+                    ),
+                    Center(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.6),
+                              offset: Offset(0, 15),
+                              blurRadius: 30.0,
+                            )
+                          ],
+                        ),
+                        child: TextButton.icon(
+                          onPressed: () => _orderC.next(3),
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                              _orderC.checkValidation()
+                                  ? AppTheme.color1
+                                  : AppTheme.color1.withOpacity(.6),
+                            ),
+                            shape: MaterialStateProperty.all(
+                              StadiumBorder(),
+                            ),
+                            padding: MaterialStateProperty.all<EdgeInsets>(
+                              EdgeInsets.symmetric(
+                                horizontal: 14,
+                                vertical: 5,
+                              ),
+                            ),
+                          ),
+                          icon: Icon(
+                            Icons.trending_flat,
+                            color: Colors.white,
+                            size: 35,
+                          ),
+                          label: Text(
+                            'Next',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            if (_orderC.step.value == 3)
+              return Expanded(
+                child: Column(
+                  children: [
+                    Center(
+                      child: Text('Order step'),
+                    ),
+                    Center(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.6),
+                              offset: Offset(0, 15),
+                              blurRadius: 30.0,
+                            )
+                          ],
+                        ),
+                        child: TextButton.icon(
+                          onPressed: _orderC.checkValidation()
+                              ? () => _orderC.orderNow()
+                              : null,
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                              _orderC.checkValidation()
+                                  ? AppTheme.color1
+                                  : AppTheme.color1.withOpacity(.6),
+                            ),
+                            shape: MaterialStateProperty.all(
+                              StadiumBorder(),
+                            ),
+                            padding: MaterialStateProperty.all<EdgeInsets>(
+                              EdgeInsets.symmetric(
+                                horizontal: 14,
+                                vertical: 5,
+                              ),
+                            ),
+                          ),
+                          icon: Icon(
+                            Icons.trending_flat,
+                            color: Colors.white,
+                            size: 35,
+                          ),
+                          label: Text(
+                            'Next',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               );
           })

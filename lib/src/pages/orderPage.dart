@@ -1,14 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gifty/src/controllers/firebaseController.dart';
 import 'package:gifty/src/pages/homePage.dart';
-import 'package:gifty/src/pages/trackOrdersPage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gifty/src/pages/orderItemsPage.dart';
 import 'package:lottie/lottie.dart';
 
 class OrderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _firebaseController = Get.put(FirebaseController());
+    final _firebaseController = Get.put(FirebaseController(), permanent: true);
     return Scaffold(
       body: Container(
         child: Column(
@@ -47,11 +48,12 @@ class OrderPage extends StatelessWidget {
               ),
             ),
             StreamBuilder(
-              stream: _firebaseController.getUserOrder('orders'),
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                // final order = snapshot.data;
-                // print(order['cartList']);
+              stream: _firebaseController.getUserOrders(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (!snapshot.hasData) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (snapshot.data.docs.length == 0) {
                   return Container(
                     height: 650,
                     child: Column(
@@ -121,16 +123,17 @@ class OrderPage extends StatelessWidget {
                   return Container(
                     // height: 500,
                     child: ListView.builder(
-                      itemCount: 1,
+                      itemCount: snapshot.data.docs.length,
                       shrinkWrap: true,
                       primary: false,
                       itemBuilder: (BuildContext context, int index) {
-                        // final item = snapshot.data.docs[index];
+                        final item = snapshot.data.docs[index];
+
                         return InkWell(
                           onTap: () {
-                            Get.to(
-                              TrackOrdersPage(),
-                            );
+                            Get.to(() => OrderItemsPage(
+                                  orderItems: item['orderItems'],
+                                ));
                           },
                           child: Container(
                             height: 130,
@@ -152,70 +155,75 @@ class OrderPage extends StatelessWidget {
                                 Icon(
                                   Icons.shopping_cart_outlined,
                                   color: Colors.white,
-                                  size: 80,
+                                  size: 35,
                                 ),
                                 SizedBox(
                                   width: 20.0,
                                 ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                      height: 20.0,
-                                    ),
-                                    Text(
-                                      'Order#: ',
-                                      style: TextStyle(
-                                        fontSize: 22.0,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.white,
+                                Container(
+                                  width: Get.width - 200,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height: 20.0,
                                       ),
-                                    ),
-                                    Text(
-                                      'Delivery Date: ',
-                                      style: TextStyle(
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.white,
+                                      Text(
+                                        'Order id: ${item['orderId'].toString().substring(12)}',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.white,
+                                        ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: 6.0,
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          'Status:',
-                                          style: TextStyle(
-                                            fontSize: 18.0,
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.white,
-                                          ),
+                                      Text(
+                                        'Delivery Date: ${item['deliveryDate']}',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.white,
                                         ),
-                                        SizedBox(
-                                          width: 20.0,
-                                        ),
-                                        Container(
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: 8.0,
-                                            vertical: 1.5,
-                                          ),
-                                          decoration: BoxDecoration(
-                                            color: Colors.amber[700],
-                                            borderRadius:
-                                                BorderRadius.circular(4),
-                                          ),
-                                          child: Text(
-                                            'Pending',
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      SizedBox(
+                                        height: 6.0,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            'Status:',
                                             style: TextStyle(
-                                              fontSize: 14.0,
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.w600,
                                               color: Colors.white,
                                             ),
                                           ),
-                                        )
-                                      ],
-                                    ),
-                                  ],
+                                          SizedBox(
+                                            width: 10.0,
+                                          ),
+                                          Container(
+                                            padding: EdgeInsets.all(4),
+                                            decoration: BoxDecoration(
+                                              color: Colors.amber[700],
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            child: Text(
+                                              '${item['pending'] ? 'Pending' : 'Delivered'}',
+                                              style: TextStyle(
+                                                fontSize: 14.0,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),

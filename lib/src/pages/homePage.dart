@@ -13,8 +13,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  String menuName = 'Flowers';
   final _firebaseController = Get.put(FirebaseController());
+
   final _cartController = Get.put(CartController());
 
   final cartController = Get.put(CartController());
@@ -25,6 +32,7 @@ class HomePage extends StatelessWidget {
 
     return DefaultTabController(
       length: 4,
+      initialIndex: 0,
       child: Scaffold(
         backgroundColor: Color(0xFFFEF2F2),
         key: scaffoldKey,
@@ -79,13 +87,29 @@ class HomePage extends StatelessWidget {
                   unselectedLabelColor: Colors.grey[350],
                   labelColor: Color(0xFFEA4E5C),
                   physics: BouncingScrollPhysics(),
+                  onTap: (int index) {
+                    setState(() {
+                      switch (index) {
+                        case 1:
+                          menuName = 'Search';
+                          break;
+                        case 2:
+                          menuName = 'Popular';
+                          break;
+                        case 3:
+                          menuName = 'Featured';
+                          break;
+                        default:
+                      }
+                    });
+                  },
                   labelStyle: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                   tabs: [
                     Tab(
-                      child: Text('Flowers'),
+                      child: Text('Gifts '),
                     ),
                     Tab(
                       child: Text('Search'),
@@ -105,6 +129,7 @@ class HomePage extends StatelessWidget {
               Container(
                 height: 490,
                 child: TabBarView(
+                  physics: NeverScrollableScrollPhysics(),
                   children: [
                     StreamBuilder(
                       stream: _firebaseController.getData('products'),
@@ -353,97 +378,150 @@ class HomePage extends StatelessWidget {
                         ),
                       ],
                     ),
-
-                    //Popular Tab Section
-
-                    Container(
-                      child: ListView.builder(
-                        physics: BouncingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 5,
-                        itemBuilder: (BuildContext context, int index) {
-                          //final item = snapshot.data.docs[index];
-                          return GestureDetector(
-                            onTap: () {},
-                            child: Container(
-                              margin: EdgeInsets.only(left: 20),
-                              padding: EdgeInsets.only(left: 15, right: 15),
-                              decoration: BoxDecoration(
-                                color: Color(0xFF4F8188),
-                                borderRadius: BorderRadius.circular(180),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Stack(
-                                    children: [
-                                      Align(
-                                        alignment: Alignment.topCenter,
-                                        child: Container(
-                                          margin: EdgeInsets.symmetric(
-                                            vertical: 15,
-                                          ),
-                                          height: 220,
-                                          width: 220,
-                                          decoration: BoxDecoration(
-                                            color: Color(0xFF6ca495),
-                                            borderRadius:
-                                                BorderRadius.circular(125),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: const Color(0xcc000000)
-                                                    .withOpacity(0.5),
-                                                offset: Offset(3, 5),
-                                                blurRadius: 20,
-                                              ),
-                                            ],
-                                          ),
-                                          child: Image.asset(
-                                              'assets/images/flower1.png'),
-                                        ),
+                    StreamBuilder(
+                      stream:
+                          _firebaseController.getProductByCategory(menuName),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (!snapshot.hasData) {
+                          return Center(child: CircularProgressIndicator());
+                        } else {
+                          return Container(
+                            child: ListView.builder(
+                              physics: BouncingScrollPhysics(),
+                              scrollDirection: Axis.horizontal,
+                              itemCount: snapshot.data.docs.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                DocumentSnapshot item =
+                                    snapshot.data.docs[index];
+                                final rating = double.parse(item['rating']);
+                                // print(item.id);
+                                return GestureDetector(
+                                  onTap: () {
+                                    Get.to(
+                                      ProductDetailsPage(
+                                        id: item.id,
                                       ),
-                                      Positioned(
-                                        right: 0,
-                                        bottom: 20,
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            print('Add to Card');
-                                          },
-                                          child: CircleAvatar(
-                                            maxRadius: 35,
-                                            backgroundColor:
-                                                Colors.white.withOpacity(0.7),
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                left: 5,
-                                              ),
-                                              child: SvgPicture.asset(
-                                                'assets/svg/cart-plus.svg',
-                                                width: 35,
-                                                color: Color(0xFF4F8188),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 45,
-                                  ),
-                                  Container(
-                                    margin:
-                                        EdgeInsets.symmetric(horizontal: 16),
+                                    );
+                                  },
+                                  child: Container(
+                                    margin: EdgeInsets.only(left: 20),
+                                    padding:
+                                        EdgeInsets.only(left: 15, right: 15),
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFFF56461),
+                                      borderRadius: BorderRadius.circular(180),
+                                    ),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
+                                        Stack(
+                                          children: [
+                                            Align(
+                                              alignment: Alignment.topCenter,
+                                              child: Container(
+                                                margin: EdgeInsets.symmetric(
+                                                  vertical: 15,
+                                                ),
+                                                height: 220,
+                                                width: 220,
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xFFFEF2F2),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          125),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: const Color(
+                                                              0xcc000000)
+                                                          .withOpacity(0.5),
+                                                      offset: Offset(3, 5),
+                                                      blurRadius: 20,
+                                                    ),
+                                                  ],
+                                                ),
+                                                child: CachedNetworkImage(
+                                                  imageUrl: item['thumbnail'],
+                                                  placeholder: (context, url) =>
+                                                      CircularProgressIndicator(),
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          Icon(Icons.error),
+                                                ),
+                                              ),
+                                            ),
+                                            Positioned(
+                                              right: 0,
+                                              bottom: 20,
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  if (_cartController
+                                                          .checkCartExist(
+                                                              id: item.id) !=
+                                                      null) {
+                                                    Get.snackbar(
+                                                      'Opps!!',
+                                                      '${item['title']} already exists in your cart',
+                                                      icon: Icon(
+                                                        Icons.done_all,
+                                                        color: Colors.white,
+                                                      ),
+                                                      colorText: Colors.white,
+                                                      backgroundColor:
+                                                          Colors.green[300],
+                                                      snackPosition:
+                                                          SnackPosition.TOP,
+                                                    );
+                                                  } else {
+                                                    final cart = Cart(
+                                                      id: item.id,
+                                                      title: item['title'],
+                                                      thumbnail:
+                                                          item['thumbnail'],
+                                                      details:
+                                                          item['description'],
+                                                      price: item['price'],
+                                                      quantity: 1,
+                                                      category:
+                                                          item['category'],
+                                                    );
+                                                    cartController.addToCart(
+                                                        cart: cart);
+                                                  }
+                                                },
+                                                child: CircleAvatar(
+                                                  maxRadius: 35,
+                                                  backgroundColor: Colors.white
+                                                      .withOpacity(0.7),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                      left: 5,
+                                                    ),
+                                                    child: SvgPicture.asset(
+                                                      'assets/svg/cart-plus.svg',
+                                                      width: 35,
+                                                      color: Color(0xFFEA4E5C),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 45,
+                                        ),
                                         Container(
-                                          height: 20,
-                                          child: Row(
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 16),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               RatingBarIndicator(
-                                                rating: 2.75,
+                                                rating: 2.5,
                                                 itemBuilder: (context, index) =>
                                                     Icon(
                                                   Icons.star,
@@ -454,220 +532,410 @@ class HomePage extends StatelessWidget {
                                                 direction: Axis.horizontal,
                                               ),
                                               SizedBox(
-                                                width: 18,
+                                                height: 5,
                                               ),
-                                              FlatButton(
-                                                height: 20,
-                                                minWidth: 20,
-                                                color: Color(0xFF6ca495),
-                                                onPressed: () {},
-                                                child: Text(
-                                                  'Popular',
-                                                  style: TextStyle(
-                                                      color: Colors.white),
+                                              Text(
+                                                '${item['category']}',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
                                                 ),
-                                              )
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                '${item['title']}',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 25,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 8,
+                                              ),
+                                              Text(
+                                                '${item['weight']} / \৳${item['price']}',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
                                             ],
-                                          ),
-                                        ),
-                                        Text(
-                                          'Category',
-                                          style: TextStyle(
-                                            color: Color(0xFFBED5B9),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Text(
-                                          'New Product',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 25,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 8,
-                                        ),
-                                        Text(
-                                          '10z / \৳12',
-                                          style: TextStyle(
-                                            color: Color(0xFFBED5B9),
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
                                           ),
                                         ),
                                       ],
                                     ),
                                   ),
-                                ],
-                              ),
+                                );
+                              },
                             ),
                           );
-                        },
-                      ),
+                        }
+                      },
                     ),
-
-                    //Trending Section
-
-                    Container(
-                      child: ListView.builder(
-                        physics: BouncingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 5,
-                        itemBuilder: (BuildContext context, int index) {
-                          //final item = snapshot.data.docs[index];
-                          return GestureDetector(
-                            onTap: () {},
-                            child: Container(
-                              margin: EdgeInsets.only(left: 20),
-                              padding: EdgeInsets.only(left: 15, right: 15),
-                              decoration: BoxDecoration(
-                                color: Color(0xFF4F8188),
-                                borderRadius: BorderRadius.circular(180),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Stack(
-                                    children: [
-                                      Align(
-                                        alignment: Alignment.topCenter,
-                                        child: Container(
-                                          margin: EdgeInsets.symmetric(
-                                            vertical: 15,
-                                          ),
-                                          height: 220,
-                                          width: 220,
-                                          decoration: BoxDecoration(
-                                            color: Color(0xFF6ca495),
-                                            borderRadius:
-                                                BorderRadius.circular(125),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: const Color(0xcc000000)
-                                                    .withOpacity(0.5),
-                                                offset: Offset(3, 5),
-                                                blurRadius: 20,
-                                              ),
-                                            ],
-                                          ),
-                                          child: Image.asset(
-                                              'assets/images/flower1.png'),
-                                        ),
+                    StreamBuilder(
+                      stream:
+                          _firebaseController.getProductByCategory(menuName),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (!snapshot.hasData) {
+                          return Center(child: CircularProgressIndicator());
+                        } else {
+                          return Container(
+                            child: ListView.builder(
+                              physics: BouncingScrollPhysics(),
+                              scrollDirection: Axis.horizontal,
+                              itemCount: snapshot.data.docs.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                DocumentSnapshot item =
+                                    snapshot.data.docs[index];
+                                final rating = double.parse(item['rating']);
+                                // print(item.id);
+                                return GestureDetector(
+                                  onTap: () {
+                                    Get.to(
+                                      ProductDetailsPage(
+                                        id: item.id,
                                       ),
-                                      Positioned(
-                                        right: 0,
-                                        bottom: 20,
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            print('Add to Card');
-                                          },
-                                          child: CircleAvatar(
-                                            maxRadius: 35,
-                                            backgroundColor:
-                                                Colors.white.withOpacity(0.7),
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                left: 5,
-                                              ),
-                                              child: SvgPicture.asset(
-                                                'assets/svg/cart-plus.svg',
-                                                width: 35,
-                                                color: Color(0xFF4F8188),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 45,
-                                  ),
-                                  Container(
-                                    margin:
-                                        EdgeInsets.symmetric(horizontal: 16),
+                                    );
+                                  },
+                                  child: Container(
+                                    margin: EdgeInsets.only(left: 20),
+                                    padding:
+                                        EdgeInsets.only(left: 15, right: 15),
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFFF56461),
+                                      borderRadius: BorderRadius.circular(180),
+                                    ),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Row(
+                                        Stack(
                                           children: [
-                                            RatingBarIndicator(
-                                              rating: 2.75,
-                                              itemBuilder: (context, index) =>
-                                                  Icon(
-                                                Icons.star,
-                                                color: Colors.amber,
+                                            Align(
+                                              alignment: Alignment.topCenter,
+                                              child: Container(
+                                                margin: EdgeInsets.symmetric(
+                                                  vertical: 15,
+                                                ),
+                                                height: 220,
+                                                width: 220,
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xFFFEF2F2),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          125),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: const Color(
+                                                              0xcc000000)
+                                                          .withOpacity(0.5),
+                                                      offset: Offset(3, 5),
+                                                      blurRadius: 20,
+                                                    ),
+                                                  ],
+                                                ),
+                                                child: CachedNetworkImage(
+                                                  imageUrl: item['thumbnail'],
+                                                  placeholder: (context, url) =>
+                                                      CircularProgressIndicator(),
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          Icon(Icons.error),
+                                                ),
                                               ),
-                                              itemCount: 5,
-                                              itemSize: 16.0,
-                                              direction: Axis.horizontal,
                                             ),
-                                            SizedBox(
-                                              width: 18,
-                                            ),
-                                            FlatButton(
-                                              height: 20,
-                                              minWidth: 20,
-                                              color: Color(0xFF6ca495),
-                                              onPressed: () {},
-                                              child: Text(
-                                                'Featured',
-                                                style: TextStyle(
-                                                  color: Colors.white,
+                                            Positioned(
+                                              right: 0,
+                                              bottom: 20,
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  if (_cartController
+                                                          .checkCartExist(
+                                                              id: item.id) !=
+                                                      null) {
+                                                    Get.snackbar(
+                                                      'Opps!!',
+                                                      '${item['title']} already exists in your cart',
+                                                      icon: Icon(
+                                                        Icons.done_all,
+                                                        color: Colors.white,
+                                                      ),
+                                                      colorText: Colors.white,
+                                                      backgroundColor:
+                                                          Colors.green[300],
+                                                      snackPosition:
+                                                          SnackPosition.TOP,
+                                                    );
+                                                  } else {
+                                                    final cart = Cart(
+                                                      id: item.id,
+                                                      title: item['title'],
+                                                      thumbnail:
+                                                          item['thumbnail'],
+                                                      details:
+                                                          item['description'],
+                                                      price: item['price'],
+                                                      quantity: 1,
+                                                      category:
+                                                          item['category'],
+                                                    );
+                                                    cartController.addToCart(
+                                                        cart: cart);
+                                                  }
+                                                },
+                                                child: CircleAvatar(
+                                                  maxRadius: 35,
+                                                  backgroundColor: Colors.white
+                                                      .withOpacity(0.7),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                      left: 5,
+                                                    ),
+                                                    child: SvgPicture.asset(
+                                                      'assets/svg/cart-plus.svg',
+                                                      width: 35,
+                                                      color: Color(0xFFEA4E5C),
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
                                             )
                                           ],
                                         ),
                                         SizedBox(
-                                          height: 5,
+                                          height: 45,
                                         ),
-                                        Text(
-                                          'Category',
-                                          style: TextStyle(
-                                            color: Color(0xFFBED5B9),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Text(
-                                          'New Product',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 25,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 8,
-                                        ),
-                                        Text(
-                                          '10z / \৳12',
-                                          style: TextStyle(
-                                            color: Color(0xFFBED5B9),
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
+                                        Container(
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 16),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              RatingBarIndicator(
+                                                rating: 2.5,
+                                                itemBuilder: (context, index) =>
+                                                    Icon(
+                                                  Icons.star,
+                                                  color: Colors.amber,
+                                                ),
+                                                itemCount: 5,
+                                                itemSize: 16.0,
+                                                direction: Axis.horizontal,
+                                              ),
+                                              SizedBox(
+                                                height: 5,
+                                              ),
+                                              Text(
+                                                '${item['category']}',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                '${item['title']}',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 25,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 8,
+                                              ),
+                                              Text(
+                                                '${item['weight']} / \৳${item['price']}',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ],
                                     ),
                                   ),
-                                ],
-                              ),
+                                );
+                              },
                             ),
                           );
-                        },
-                      ),
+                        }
+                      },
                     ),
+
+                    //Popular Tab Section
+
+                    //Trending Section
+
+                    // Container(
+                    //   child: ListView.builder(
+                    //     physics: BouncingScrollPhysics(),
+                    //     scrollDirection: Axis.horizontal,
+                    //     itemCount: 5,
+                    //     itemBuilder: (BuildContext context, int index) {
+                    //       //final item = snapshot.data.docs[index];
+                    //       return GestureDetector(
+                    //         onTap: () {},
+                    //         child: Container(
+                    //           margin: EdgeInsets.only(left: 20),
+                    //           padding: EdgeInsets.only(left: 15, right: 15),
+                    //           decoration: BoxDecoration(
+                    //             color: Color(0xFF4F8188),
+                    //             borderRadius: BorderRadius.circular(180),
+                    //           ),
+                    //           child: Column(
+                    //             crossAxisAlignment: CrossAxisAlignment.start,
+                    //             children: [
+                    //               Stack(
+                    //                 children: [
+                    //                   Align(
+                    //                     alignment: Alignment.topCenter,
+                    //                     child: Container(
+                    //                       margin: EdgeInsets.symmetric(
+                    //                         vertical: 15,
+                    //                       ),
+                    //                       height: 220,
+                    //                       width: 220,
+                    //                       decoration: BoxDecoration(
+                    //                         color: Color(0xFF6ca495),
+                    //                         borderRadius:
+                    //                             BorderRadius.circular(125),
+                    //                         boxShadow: [
+                    //                           BoxShadow(
+                    //                             color: const Color(0xcc000000)
+                    //                                 .withOpacity(0.5),
+                    //                             offset: Offset(3, 5),
+                    //                             blurRadius: 20,
+                    //                           ),
+                    //                         ],
+                    //                       ),
+                    //                       child: Image.asset(
+                    //                           'assets/images/flower1.png'),
+                    //                     ),
+                    //                   ),
+                    //                   Positioned(
+                    //                     right: 0,
+                    //                     bottom: 20,
+                    //                     child: GestureDetector(
+                    //                       onTap: () {
+                    //                         print('Add to Card');
+                    //                       },
+                    //                       child: CircleAvatar(
+                    //                         maxRadius: 35,
+                    //                         backgroundColor:
+                    //                             Colors.white.withOpacity(0.7),
+                    //                         child: Padding(
+                    //                           padding: const EdgeInsets.only(
+                    //                             left: 5,
+                    //                           ),
+                    //                           child: SvgPicture.asset(
+                    //                             'assets/svg/cart-plus.svg',
+                    //                             width: 35,
+                    //                             color: Color(0xFF4F8188),
+                    //                           ),
+                    //                         ),
+                    //                       ),
+                    //                     ),
+                    //                   )
+                    //                 ],
+                    //               ),
+                    //               SizedBox(
+                    //                 height: 45,
+                    //               ),
+                    //               Container(
+                    //                 margin:
+                    //                     EdgeInsets.symmetric(horizontal: 16),
+                    //                 child: Column(
+                    //                   crossAxisAlignment:
+                    //                       CrossAxisAlignment.start,
+                    //                   children: [
+                    //                     Row(
+                    //                       children: [
+                    //                         RatingBarIndicator(
+                    //                           rating: 2.75,
+                    //                           itemBuilder: (context, index) =>
+                    //                               Icon(
+                    //                             Icons.star,
+                    //                             color: Colors.amber,
+                    //                           ),
+                    //                           itemCount: 5,
+                    //                           itemSize: 16.0,
+                    //                           direction: Axis.horizontal,
+                    //                         ),
+                    //                         SizedBox(
+                    //                           width: 18,
+                    //                         ),
+                    //                         FlatButton(
+                    //                           height: 20,
+                    //                           minWidth: 20,
+                    //                           color: Color(0xFF6ca495),
+                    //                           onPressed: () {},
+                    //                           child: Text(
+                    //                             'Featured',
+                    //                             style: TextStyle(
+                    //                               color: Colors.white,
+                    //                             ),
+                    //                           ),
+                    //                         )
+                    //                       ],
+                    //                     ),
+                    //                     SizedBox(
+                    //                       height: 5,
+                    //                     ),
+                    //                     Text(
+                    //                       'Category',
+                    //                       style: TextStyle(
+                    //                         color: Color(0xFFBED5B9),
+                    //                         fontSize: 16,
+                    //                         fontWeight: FontWeight.bold,
+                    //                       ),
+                    //                     ),
+                    //                     SizedBox(
+                    //                       height: 10,
+                    //                     ),
+                    //                     Text(
+                    //                       'New Product',
+                    //                       style: TextStyle(
+                    //                         color: Colors.white,
+                    //                         fontSize: 25,
+                    //                         fontWeight: FontWeight.bold,
+                    //                       ),
+                    //                     ),
+                    //                     SizedBox(
+                    //                       height: 8,
+                    //                     ),
+                    //                     Text(
+                    //                       '10z / \৳12',
+                    //                       style: TextStyle(
+                    //                         color: Color(0xFFBED5B9),
+                    //                         fontSize: 20,
+                    //                         fontWeight: FontWeight.bold,
+                    //                       ),
+                    //                     ),
+                    //                   ],
+                    //                 ),
+                    //               ),
+                    //             ],
+                    //           ),
+                    //         ),
+                    //       );
+                    //     },
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

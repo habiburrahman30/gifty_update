@@ -12,7 +12,20 @@ class Shipping extends StatefulWidget {
 }
 
 class _ShippingState extends State<Shipping> {
-  final _orderC = Get.put(OrderController());
+  final _orderC = Get.put(OrderController(), permanent: true);
+  @override
+  void dispose() {
+    _orderC.step.value = 1;
+    _orderC.date.value = '';
+    _orderC.name.value = '';
+    _orderC.phone.value = '';
+    _orderC.address.value = '';
+    _orderC.senderName.value = '';
+    _orderC.senderEmail.value = '';
+    _orderC.senderPhone.value = '';
+    _orderC.userDateReady.value = false;
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,11 +81,13 @@ class _ShippingState extends State<Shipping> {
                   ),
                   CustomTextField(
                     onChanged: _orderC.phone,
-                    errorText: _orderC.phone.value.length >= 11 ||
-                            _orderC.phone.value.isEmpty
+                    errorText: _orderC.phone.value.isNotEmpty &&
+                            _orderC.phone.value.length == 11
                         ? null
-                        : 'Please enter your Phone',
-                    hintText: 'Phone',
+                        : _orderC.phone.value.isEmpty
+                            ? null
+                            : 'Please enter valid phone number',
+                    hintText: '+8801XXXXXXXXX',
                     suffixIcon: Icon(Icons.mobile_friendly_sharp),
                     keyboardType: TextInputType.phone,
                     textInputAction: TextInputAction.next,
@@ -203,12 +218,15 @@ class _ShippingState extends State<Shipping> {
                                                   _orderC.senderPhone.value,
                                               onChanged: _orderC.senderPhone,
                                               errorText: _orderC.senderPhone
-                                                              .value.length ==
-                                                          11 ||
+                                                          .value.isNotEmpty &&
                                                       _orderC.senderPhone.value
-                                                          .isEmpty
+                                                              .length ==
+                                                          11
                                                   ? null
-                                                  : 'Please enter valid phone number',
+                                                  : _orderC.senderPhone.value
+                                                          .isEmpty
+                                                      ? null
+                                                      : 'Please enter valid phone number',
                                               hintText: '+8801XXXXXXXXX',
                                               suffixIcon: Icon(
                                                 Icons.mobile_friendly_sharp,
@@ -226,50 +244,7 @@ class _ShippingState extends State<Shipping> {
                           ],
                         )
                       : Container(), // Container(
-                  //   child: Column(
-                  //     children: [
-                  //       CustomTextField(
-                  //         onChanged: _orderC.name,
-                  //         errorText: _orderC.name.value.length > 6 ||
-                  //                 _orderC.name.value.isEmpty
-                  //             ? null
-                  //             : 'Please enter your name',
-                  //         hintText: 'Your Name',
-                  //         suffixIcon: Icon(Icons.person),
-                  //         keyboardType: TextInputType.name,
-                  //         textInputAction: TextInputAction.next,
-                  //       ),
-                  //       SizedBox(
-                  //         height: 20,
-                  //       ),
-                  //       CustomTextField(
-                  //         onChanged: _orderC.email,
-                  //         errorText: _orderC.email.value.isEmail ||
-                  //                 _orderC.email.value.isEmpty
-                  //             ? null
-                  //             : 'Please enter your Email',
-                  //         hintText: 'Your Email',
-                  //         suffixIcon: Icon(Icons.email),
-                  //         keyboardType: TextInputType.emailAddress,
-                  //         textInputAction: TextInputAction.next,
-                  //       ),
-                  //       SizedBox(
-                  //         height: 20,
-                  //       ),
-                  //       CustomTextField(
-                  //         onChanged: _orderC.phone,
-                  //         errorText: _orderC.phone.value.length >= 11 ||
-                  //                 _orderC.phone.value.isEmpty
-                  //             ? null
-                  //             : 'Please enter your name',
-                  //         hintText: 'Your Phone',
-                  //         suffixIcon: Icon(Icons.mobile_friendly_sharp),
-                  //         keyboardType: TextInputType.phone,
-                  //         textInputAction: TextInputAction.done,
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
+
                   SizedBox(
                     height: 10,
                   ),

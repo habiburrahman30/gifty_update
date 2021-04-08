@@ -10,8 +10,10 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseController extends GetxController {
+  final _firestore = FirebaseFirestore.instance;
+
   Stream<QuerySnapshot> getData(collectionName) {
-    return FirebaseFirestore.instance.collection(collectionName).snapshots();
+    return _firestore.collection(collectionName).snapshots();
   }
 
   Stream<DocumentSnapshot> getSingleProduct(
@@ -35,11 +37,22 @@ class FirebaseController extends GetxController {
         .catchError((error) => print("Failed to update user: $error"));
   }
 
-  Stream<DocumentSnapshot> getUserOrder(collectionName) {
-    CollectionReference userData =
-        FirebaseFirestore.instance.collection(collectionName);
-    var cUser = _auth.currentUser;
-    return userData.doc(cUser.uid).snapshots();
+  Stream<QuerySnapshot> getUserOrders() {
+    final uId = FirebaseAuth.instance.currentUser.uid;
+
+    return _firestore
+        .collection('orders')
+        .where('uId', isEqualTo: uId)
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot> getProductByCategory(menu) {
+    // final uId = FirebaseAuth.instance.currentUser.uid;
+
+    return _firestore
+        .collection('products')
+        .where('menu', isEqualTo: menu)
+        .snapshots();
   }
 
   //Login Sign Up Function
