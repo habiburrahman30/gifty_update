@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:gifty/src/config/appTheme.dart';
 import 'package:gifty/src/controllers/firebaseController.dart';
 
 import 'package:flutter/material.dart';
@@ -61,8 +62,8 @@ class _AccountPageState extends State<AccountPage> {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  Color(0xFF819e7b),
-                  Colors.grey[400],
+                  AppTheme.color1,
+                  AppTheme.color2,
                 ],
               ),
             ),

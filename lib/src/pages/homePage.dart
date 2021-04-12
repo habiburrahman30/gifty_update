@@ -146,8 +146,8 @@ class _HomePageState extends State<HomePage> {
                               itemBuilder: (BuildContext context, int index) {
                                 DocumentSnapshot item =
                                     snapshot.data.docs[index];
-                                final rating = double.parse(item['rating']);
-                                // print(item.id);
+                                // final rating = double.parse(item['rating']);
+
                                 return GestureDetector(
                                   onTap: () {
                                     Get.to(
@@ -394,8 +394,8 @@ class _HomePageState extends State<HomePage> {
                               itemBuilder: (BuildContext context, int index) {
                                 DocumentSnapshot item =
                                     snapshot.data.docs[index];
-                                final rating = double.parse(item['rating']);
-                                // print(item.id);
+                                // final rating = double.parse(item['rating']);
+
                                 return GestureDetector(
                                   onTap: () {
                                     Get.to(

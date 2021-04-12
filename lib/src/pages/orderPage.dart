@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:gifty/src/config/appTheme.dart';
 import 'package:gifty/src/controllers/firebaseController.dart';
 import 'package:gifty/src/pages/homePage.dart';
 import 'package:flutter/material.dart';
@@ -139,14 +140,14 @@ class OrderPage extends StatelessWidget {
                             height: 130,
                             margin: EdgeInsets.symmetric(
                               horizontal: 20.0,
-                              vertical: 15.0,
+                              vertical: 10.0,
                             ),
                             padding: EdgeInsets.symmetric(
                               horizontal: 15.0,
                               vertical: 10.0,
                             ),
                             decoration: BoxDecoration(
-                              color: Color(0xFF4F8188),
+                              color: AppTheme.color1.withOpacity(0.9),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             width: double.infinity,
@@ -172,8 +173,8 @@ class OrderPage extends StatelessWidget {
                                       Text(
                                         'Order id: ${item['orderId'].toString().substring(12)}',
                                         style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w600,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w800,
                                           color: Colors.white,
                                         ),
                                         maxLines: 1,
@@ -183,7 +184,7 @@ class OrderPage extends StatelessWidget {
                                         'Delivery Date: ${item['deliveryDate']}',
                                         style: TextStyle(
                                           fontSize: 14,
-                                          fontWeight: FontWeight.w600,
+                                          fontWeight: FontWeight.w800,
                                           color: Colors.white,
                                         ),
                                         maxLines: 1,
@@ -197,8 +198,8 @@ class OrderPage extends StatelessWidget {
                                           Text(
                                             'Status:',
                                             style: TextStyle(
-                                              fontSize: 18.0,
-                                              fontWeight: FontWeight.w600,
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.w800,
                                               color: Colors.white,
                                             ),
                                           ),
@@ -206,16 +207,19 @@ class OrderPage extends StatelessWidget {
                                             width: 10.0,
                                           ),
                                           Container(
-                                            padding: EdgeInsets.all(4),
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: 10.0,
+                                              vertical: 3.0,
+                                            ),
                                             decoration: BoxDecoration(
                                               color: Colors.amber[700],
                                               borderRadius:
-                                                  BorderRadius.circular(5),
+                                                  BorderRadius.circular(3),
                                             ),
                                             child: Text(
                                               '${item['pending'] ? 'Pending' : 'Delivered'}',
                                               style: TextStyle(
-                                                fontSize: 14.0,
+                                                fontSize: 12.0,
                                                 color: Colors.white,
                                               ),
                                             ),

@@ -1,3 +1,4 @@
+import 'package:gifty/src/config/appTheme.dart';
 import 'package:gifty/src/pages/settingPage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,6 +9,7 @@ class DrawerComponent extends StatelessWidget {
     return Drawer(
       child: SingleChildScrollView(
         child: Container(
+          color: AppTheme.bodyBg,
           child: Stack(
             children: [
               Positioned(
@@ -17,7 +19,7 @@ class DrawerComponent extends StatelessWidget {
                   height: 190,
                   width: 190,
                   decoration: BoxDecoration(
-                    color: Color(0xFF54858a),
+                    color: AppTheme.color1,
                     borderRadius: BorderRadius.circular(150),
                   ),
                   child: Padding(
@@ -45,7 +47,7 @@ class DrawerComponent extends StatelessWidget {
                   height: 80,
                   width: 80,
                   decoration: BoxDecoration(
-                    color: Color(0xFFe3efe3),
+                    color: AppTheme.color2,
                     borderRadius: BorderRadius.circular(150),
                   ),
                 ),
@@ -57,7 +59,7 @@ class DrawerComponent extends StatelessWidget {
                   height: 200,
                   width: 200,
                   decoration: BoxDecoration(
-                    color: Color(0xFFbfd6ba),
+                    color: AppTheme.color2,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(150),
                       topRight: Radius.circular(150),
@@ -171,7 +173,6 @@ class DrawerComponent extends StatelessWidget {
                   )
                 ],
               ),
-              
             ],
           ),
         ),

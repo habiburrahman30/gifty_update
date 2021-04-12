@@ -1,3 +1,4 @@
+import 'package:gifty/src/config/appTheme.dart';
 import 'package:gifty/src/controllers/authController.dart';
 import 'package:gifty/src/controllers/firebaseController.dart';
 import 'package:gifty/src/pages/aboutgifty.dart';
@@ -16,6 +17,7 @@ class SerttingPage extends GetWidget<FirebaseController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppTheme.bodyBg,
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(

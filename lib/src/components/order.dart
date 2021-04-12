@@ -1,6 +1,7 @@
-import 'package:gifty/src/controllers/addressController.dart';
+import 'package:gifty/src/config/appTheme.dart';
 import 'package:gifty/src/controllers/cartController.dart';
 import 'package:gifty/src/controllers/firebaseController.dart';
+import 'package:gifty/src/controllers/orderController.dart';
 import 'package:gifty/src/pages/thankuPage.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -11,74 +12,8 @@ class Order extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _cartController = Get.put(CartController());
-    final _addressController = Get.put(AddressController());
     final _firebaseController = Get.put(FirebaseController());
-
-    // _submitOrder() {
-    //   Map<String, dynamic> uData = {
-    //     "name": _addressController.allAddress[0].name,
-    //     "phone": _addressController.allAddress[0].phone,
-    //     "address": _addressController.allAddress[0].address,
-    //     "delivery_date": _addressController.allAddress[0].date,
-    //   };
-
-    //   Map<String, dynamic> data = {
-    //     "cartList": {
-    //       "id": 1,
-    //       "order_id": 'OTS00014',
-    //       "status": 0,
-    //       "create_at": DateTime.now(),
-    //       "receivers_address": uData,
-    //       "order": {
-    //         "title": _cartController.carts,
-    //         "price": _cartController.carts[0].price,
-    //         "thumbnail": _cartController.carts[0].thumbnail,
-    //         "quantity": _cartController.carts[0].quantity,
-    //       },
-    //     },
-    //   };
-
-    //   _firebaseController.addOrder(data, 'orders').then((value) {
-    //     // _cartController.carts.clear();
-    //     // _addressController.allAddress.clear();
-    //     Get.to(
-    //       ThankuPage(),
-    //     );
-    //   });
-    // }
-
-    _submitOrder() {
-      Map<String, dynamic> uData = {
-        "name": _addressController.allAddress[0].name,
-        "phone": _addressController.allAddress[0].phone,
-        "address": _addressController.allAddress[0].address,
-        "delivery_date": _addressController.allAddress[0].date,
-      };
-      Map<String, dynamic> data = {
-        "order": {
-          "id": 1,
-          "order_id": 'OTS00014',
-          "status": 0,
-          "create_at": DateTime.now(),
-          "receivers_address": null,
-          "product": {
-            "title": _cartController.carts[0].title,
-            "price": _cartController.carts[0].price,
-            "thumbnail": _cartController.carts[0].thumbnail,
-            "quantity": _cartController.carts[0].quantity,
-          },
-        },
-      };
-
-      _firebaseController.addOrder(data, 'orders').then((value) {
-        _cartController.carts.clear();
-        _addressController.allAddress.clear();
-
-        Get.to(
-          ThankuPage(),
-        );
-      });
-    }
+    final _orderC = Get.put(OrderController());
 
     return Obx(
       () => Container(
@@ -101,87 +36,89 @@ class Order extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            Expanded(
-              flex: 6,
-              child: Container(
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          'Name:'.toUpperCase(),
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey[600],
-                            fontWeight: FontWeight.bold,
+            Obx(
+              () => Expanded(
+                flex: 8,
+                child: Container(
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            'Name:'.toUpperCase(),
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey[600],
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          'firstName',
-                          style: TextStyle(
-                            fontSize: 14,
+                          SizedBox(
+                            width: 10,
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          'Phone:'.toUpperCase(),
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey[600],
-                            fontWeight: FontWeight.bold,
+                          Text(
+                            _orderC.name.value,
+                            style: TextStyle(
+                              fontSize: 14,
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          'phone',
-                          style: TextStyle(
-                            fontSize: 14,
+                        ],
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'Phone:'.toUpperCase(),
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey[600],
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          'Address:'.toUpperCase(),
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey[600],
-                            fontWeight: FontWeight.bold,
+                          SizedBox(
+                            width: 10,
                           ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          'address',
-                          style: TextStyle(
-                            fontSize: 14,
+                          Text(
+                            _orderC.phone.value,
+                            style: TextStyle(
+                              fontSize: 14,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'Address:'.toUpperCase(),
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey[600],
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            _orderC.address.value,
+                            style: TextStyle(
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-            SizedBox(
-              height: 30,
-            ),
+            // SizedBox(
+            //   height: 30,
+            // ),
             Text(
               'Your Order:'.toUpperCase(),
               style: TextStyle(
@@ -194,7 +131,7 @@ class Order extends StatelessWidget {
               height: 15,
             ),
             Expanded(
-              flex: 45,
+              flex: 25,
               child: Container(
                 // height: 300,
                 child: ListView.builder(
@@ -354,7 +291,7 @@ class Order extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      color: Color(0xFF4F8188),
+                      color: AppTheme.color1,
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -362,14 +299,14 @@ class Order extends StatelessWidget {
                             'Submit Order',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 18,
+                              fontSize: 16,
                             ),
                           ),
                         ],
                       ),
-                      onPressed: () {
-                        _submitOrder();
-                      },
+                      onPressed: _orderC.checkValidation()
+                          ? () => _orderC.orderNow()
+                          : null,
                     ),
                   ),
                 ],

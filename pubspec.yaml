@@ -42,6 +42,7 @@ dependencies:
   firebase_auth: ^1.0.1
   cached_network_image: ^3.0.0-nullsafety
   uuid: ^3.0.4
+  # nanoid: ^1.0.0
 
   #Social Signing
   google_sign_in: ^5.0.1

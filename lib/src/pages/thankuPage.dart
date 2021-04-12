@@ -1,3 +1,4 @@
+import 'package:gifty/src/config/appTheme.dart';
 import 'package:gifty/src/pages/homePage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,7 +9,7 @@ class ThankuPage extends StatelessWidget {
     return Scaffold(
       body: Container(
         padding: EdgeInsets.symmetric(
-          horizontal: 70,
+          horizontal: 40,
           vertical: 10,
         ),
         child: Column(
@@ -37,7 +38,7 @@ class ThankuPage extends StatelessWidget {
               height: 20,
             ),
             Text(
-              'Congratulations. your order is accepted.',
+              'Congratulations. \nYour order has been placed.',
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
@@ -48,7 +49,7 @@ class ThankuPage extends StatelessWidget {
               height: 20,
             ),
             Text(
-              'We will send to your notification when the goods will be delivered',
+              'We will send you notification about the update',
               style: TextStyle(
                 fontSize: 16,
               ),
@@ -76,7 +77,7 @@ class ThankuPage extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
-                color: Color(0xFF4F8188),
+                color: AppTheme.color1,
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [

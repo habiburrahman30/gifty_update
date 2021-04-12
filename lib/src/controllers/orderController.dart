@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:gifty/src/controllers/cartController.dart';
 import 'package:gifty/src/controllers/firebaseController.dart';
 import 'package:gifty/src/pages/homePage.dart';
+import 'package:gifty/src/pages/thankuPage.dart';
 import 'package:uuid/uuid.dart';
 
 class OrderController extends GetxController {
@@ -24,6 +25,19 @@ class OrderController extends GetxController {
   final senderPhone = ''.obs;
   final sendAnonymous = true.obs;
   final userDateReady = false.obs;
+  final cashOnDelivery = false.obs;
+
+  void manageCashOnDelivery() {
+    cashOnDelivery.toggle();
+  }
+
+  // bool checkCashOnDelivery() {
+  //   if (cashOnDelivery.value == false) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 
   void manageSendAnonymous() {
     sendAnonymous.toggle();
@@ -98,7 +112,8 @@ class OrderController extends GetxController {
       actions: [
         TextButton(
           onPressed: () {
-            Get.offAll(HomePage());
+            // Get.offAll(HomePage());
+            Get.offAll(ThankuPage());
           },
           child: Text('GOT IT'),
         ),
