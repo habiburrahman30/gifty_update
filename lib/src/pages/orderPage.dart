@@ -132,9 +132,11 @@ class OrderPage extends StatelessWidget {
 
                         return InkWell(
                           onTap: () {
-                            Get.to(() => OrderItemsPage(
-                                  orderItems: item['orderItems'],
-                                ));
+                            Get.to(
+                              () => OrderItemsPage(
+                                orderItems: item['orderItems'],
+                              ),
+                            );
                           },
                           child: Container(
                             height: 130,
@@ -212,7 +214,9 @@ class OrderPage extends StatelessWidget {
                                               vertical: 3.0,
                                             ),
                                             decoration: BoxDecoration(
-                                              color: Colors.amber[700],
+                                              color: item['pending']
+                                                  ? Colors.amber[700]
+                                                  : Colors.green[400],
                                               borderRadius:
                                                   BorderRadius.circular(3),
                                             ),

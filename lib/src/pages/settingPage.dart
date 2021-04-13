@@ -68,7 +68,7 @@ class SerttingPage extends GetWidget<FirebaseController> {
                 vertical: 15,
               ),
               decoration: BoxDecoration(
-                color: Colors.grey[200],
+                color: Colors.grey[100],
                 borderRadius: BorderRadius.circular(4),
               ),
               child: Column(
@@ -138,24 +138,24 @@ class SerttingPage extends GetWidget<FirebaseController> {
                       },
                     ),
                   ),
-                  Card(
-                    child: ListTile(
-                      leading: Icon(
-                        Icons.map_outlined,
-                      ),
-                      title: Text(
-                        'My Address',
-                      ),
-                      trailing: Icon(
-                        Icons.keyboard_arrow_right,
-                      ),
-                      onTap: () {
-                        Get.to(
-                          Address(),
-                        );
-                      },
-                    ),
-                  ),
+                  // Card(
+                  //   child: ListTile(
+                  //     leading: Icon(
+                  //       Icons.map_outlined,
+                  //     ),
+                  //     title: Text(
+                  //       'My Address',
+                  //     ),
+                  //     trailing: Icon(
+                  //       Icons.keyboard_arrow_right,
+                  //     ),
+                  //     onTap: () {
+                  //       Get.to(
+                  //         Address(),
+                  //       );
+                  //     },
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -258,6 +258,7 @@ class SerttingPage extends GetWidget<FirebaseController> {
                           ),
                           trailing: Switch(
                             value: true,
+                            activeColor: AppTheme.color1,
                             onChanged: (bool value) {},
                           ),
                           onTap: () {},

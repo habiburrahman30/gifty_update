@@ -1,5 +1,6 @@
 import 'package:gifty/src/components/bezierContainer.dart';
 import 'package:gifty/src/components/customInput.dart';
+import 'package:gifty/src/config/appTheme.dart';
 import 'package:gifty/src/controllers/firebaseController.dart';
 import 'package:gifty/src/pages/signUpPage.dart';
 
@@ -18,7 +19,8 @@ class ForgotPassword extends GetWidget<FirebaseController> {
 
     return Scaffold(
       body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+        // physics: BouncingScrollPhysics(),
+
         child: Container(
           child: Stack(
             children: [
@@ -41,7 +43,7 @@ class ForgotPassword extends GetWidget<FirebaseController> {
                   ),
                   Container(
                     child: Text(
-                      'gifty',
+                      'Gifty',
                       style: TextStyle(
                         fontSize: 45,
                         fontWeight: FontWeight.bold,
@@ -80,20 +82,20 @@ class ForgotPassword extends GetWidget<FirebaseController> {
                             child: FlatButton(
                               padding: EdgeInsets.symmetric(
                                 horizontal: 20,
-                                vertical: 15,
+                                vertical: 12,
                               ),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(40),
                               ),
-                              color: Color(0xFF4F8188),
+                              color: AppTheme.color1,
                               child: Container(
-                                width: 150.0,
+                                width: Get.width / 3.2,
                                 child: Center(
                                   child: Text(
                                     'Reset Password',
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 18,
+                                      fontSize: 16,
                                     ),
                                   ),
                                 ),

@@ -23,6 +23,7 @@ class OrderController extends GetxController {
   final senderName = ''.obs;
   final senderEmail = ''.obs;
   final senderPhone = ''.obs;
+  final senderAddress = ''.obs;
   final sendAnonymous = true.obs;
   final userDateReady = false.obs;
   final cashOnDelivery = false.obs;
@@ -31,13 +32,13 @@ class OrderController extends GetxController {
     cashOnDelivery.toggle();
   }
 
-  // bool checkCashOnDelivery() {
-  //   if (cashOnDelivery.value == false) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
+  bool checkCashOnDelivery() {
+    if (cashOnDelivery.value == false) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   void manageSendAnonymous() {
     sendAnonymous.toggle();
@@ -50,6 +51,7 @@ class OrderController extends GetxController {
     final user = await _firebaseC.getUserData('users');
     senderName.value = user['fullName'];
     senderEmail.value = user['email'];
+    senderAddress.value = user['address'];
     senderPhone.value =
         user['phone'] != null ? user['phone'] : senderPhone.value;
 
@@ -151,5 +153,26 @@ class OrderController extends GetxController {
       return 1.0;
     }
     return 1.0;
+  }
+
+  void updateUser() async {
+    final uId = FirebaseAuth.instance.currentUser.uid;
+    await _firestore.collection('users').doc(uId).update({
+      'fullName': senderName.value,
+      'email': senderEmail.value,
+      'phone': senderPhone.value,
+      'address': senderAddress.value,
+    });
+    Get.defaultDialog(
+      middleText: 'Your data has been successfully updated',
+      actions: [
+        TextButton(
+          onPressed: () {
+            Get.offAll(HomePage());
+          },
+          child: Text('GOT IT'),
+        ),
+      ],
+    );
   }
 }

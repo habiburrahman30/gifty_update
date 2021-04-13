@@ -1,3 +1,4 @@
+import 'package:gifty/src/config/appTheme.dart';
 import 'package:gifty/src/pages/homePage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -85,7 +86,7 @@ class NotificationsPage extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(40),
                       ),
-                      color: Color(0xFF4F8188),
+                      color: AppTheme.color1,
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [

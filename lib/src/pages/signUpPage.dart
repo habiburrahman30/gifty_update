@@ -1,4 +1,5 @@
 import 'package:gifty/src/components/bezierContainer.dart';
+import 'package:gifty/src/config/appTheme.dart';
 import 'package:gifty/src/controllers/authController.dart';
 import 'package:gifty/src/controllers/firebaseController.dart';
 
@@ -42,7 +43,7 @@ class SignUpPage extends GetWidget<FirebaseController> {
                   ),
                   Container(
                     child: Text(
-                      'gifty',
+                      'Gifty',
                       style: TextStyle(
                         fontSize: 45,
                         fontWeight: FontWeight.bold,
@@ -140,7 +141,7 @@ class SignUpPage extends GetWidget<FirebaseController> {
                               borderRadius: BorderRadius.circular(40),
                             ),
                             disabledColor: Color(0xFF4F8188).withOpacity(.5),
-                            color: Color(0xFF4F8188),
+                            color: AppTheme.color1,
                             child: Container(
                               width: 70.0,
                               child: Center(

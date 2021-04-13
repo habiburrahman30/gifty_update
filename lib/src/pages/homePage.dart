@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage> {
                 child: Padding(
                   padding: EdgeInsets.only(right: 150),
                   child: Text(
-                    'Marijuana Flowers.',
+                    'Swipe for next Gift',
                     style: TextStyle(
                       fontSize: 35,
                       fontWeight: FontWeight.bold,

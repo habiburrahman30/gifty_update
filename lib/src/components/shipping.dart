@@ -275,52 +275,59 @@ class _ShippingState extends State<Shipping> {
                   Obx(
                     () => Center(
                       child: Container(
+                        width: Get.width / 3.4,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.grey.withOpacity(0.6),
-                              offset: Offset(0, 15),
+                              color: Colors.black.withOpacity(.2),
+                              offset: Offset(0, 8),
                               blurRadius: 30.0,
-                            )
+                            ),
                           ],
                         ),
-                        child: TextButton.icon(
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            backgroundColor: _orderC.checkValidation()
+                                ? AppTheme.color1
+                                : AppTheme.color1.withOpacity(.6),
+                            primary: Colors.white,
+                            padding: EdgeInsets.symmetric(
+                              vertical: 5.0,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(35.0),
+                            ),
+                          ),
                           onPressed: _orderC.checkValidation()
                               ? () => _orderC.next(2)
                               : null,
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                              _orderC.checkValidation()
-                                  ? AppTheme.color1
-                                  : AppTheme.color1.withOpacity(.6),
-                            ),
-                            shape: MaterialStateProperty.all(
-                              StadiumBorder(),
-                            ),
-                            padding: MaterialStateProperty.all<EdgeInsets>(
-                              EdgeInsets.symmetric(
-                                horizontal: 14,
-                                vertical: 5,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 5),
+                                child: Text(
+                                  'Next',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                          icon: Icon(
-                            Icons.trending_flat,
-                            color: Colors.white,
-                            size: 35,
-                          ),
-                          label: Text(
-                            'Next',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                            ),
+                              SizedBox(
+                                width: 8.0,
+                              ),
+                              Icon(
+                                Icons.trending_flat,
+                                color: Colors.white,
+                                size: 35,
+                              ),
+                            ],
                           ),
                         ),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

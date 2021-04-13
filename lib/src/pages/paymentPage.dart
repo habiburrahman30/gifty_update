@@ -231,7 +231,7 @@ class _PaymentPageState extends State<PaymentPage> {
                             Checkbox(
                               value: _orderC.cashOnDelivery.value,
                               onChanged: (v) {
-                                // _orderC.manageCashOnDelivery();
+                                _orderC.manageCashOnDelivery();
                               },
                             ),
                             Text(

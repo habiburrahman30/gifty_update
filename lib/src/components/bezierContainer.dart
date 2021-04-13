@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:gifty/src/config/appTheme.dart';
 
 import 'customClipper.dart';
 
@@ -10,23 +11,26 @@ class BezierContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: Transform.rotate(
-      angle: -pi / 3.5,
-      child: ClipPath(
-        clipper: ClipPainter(),
-        child: Container(
-          height: MediaQuery.of(context).size.height * .5,
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
+      child: Transform.rotate(
+        angle: -pi / 3.5,
+        child: ClipPath(
+          clipper: ClipPainter(),
+          child: Container(
+            height: MediaQuery.of(context).size.height * .5,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
               gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                Color(0xFF4F8188).withOpacity(0.6),
-                Color(0xFF4F8188)
-              ])),
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  AppTheme.color1.withOpacity(0.8),
+                  AppTheme.color1,
+                ],
+              ),
+            ),
+          ),
         ),
       ),
-    ));
+    );
   }
 }
