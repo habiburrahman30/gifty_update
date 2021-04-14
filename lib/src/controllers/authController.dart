@@ -63,6 +63,7 @@ class AuthController extends GetxController with Validator {
           "imgUrl": null,
           "phone": null,
           "address": null,
+          "status": 'enable',
         };
         await FirebaseFirestore.instance
             .collection("users")

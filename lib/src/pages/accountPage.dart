@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:gifty/src/config/appTheme.dart';
-import 'package:gifty/src/controllers/firebaseController.dart';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -16,7 +13,6 @@ class AccountPage extends StatefulWidget {
 class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
-    final _firebaseC = Get.put(FirebaseController());
     final _orderC = Get.put(OrderController());
     _orderC.setData();
 
@@ -130,6 +126,7 @@ class _AccountPageState extends State<AccountPage> {
                             style: TextStyle(
                               fontSize: 20,
                               color: Colors.white,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                           SizedBox(
@@ -169,7 +166,7 @@ class _AccountPageState extends State<AccountPage> {
 
                                 // title: Text('Your Name'),
                                 content: Padding(
-                                  padding: EdgeInsets.all(5.0),
+                                  padding: EdgeInsets.all(8.0),
                                   child: Form(
                                     child: Column(
                                       children: [
@@ -312,15 +309,32 @@ class _AccountPageState extends State<AccountPage> {
                                   ),
                                 ),
                                 actions: [
-                                  RaisedButton(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(40),
+                                  TextButton(
+                                    style: TextButton.styleFrom(
+                                      backgroundColor: AppTheme.color1,
+                                      // backgroundColor: Colors.white,
+                                      primary: Colors.black,
+                                      padding: EdgeInsets.symmetric(
+                                        vertical: 8.0,
+                                        horizontal: 10.0,
+                                      ),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(35.0),
+                                      ),
+                                      shadowColor: Colors.black.withOpacity(.2),
                                     ),
-                                    color: AppTheme.color1,
-                                    child: Text('Submit'),
                                     onPressed: () {
                                       _orderC.updateUser();
                                     },
+                                    child: Text(
+                                      'Submit',
+                                      style: TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.white,
+                                      ),
+                                    ),
                                   ),
                                 ],
                               );

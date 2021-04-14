@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gifty/src/controllers/cartController.dart';
 import 'package:gifty/src/controllers/firebaseController.dart';
+import 'package:gifty/src/pages/accountPage.dart';
 import 'package:gifty/src/pages/homePage.dart';
 import 'package:gifty/src/pages/thankuPage.dart';
 import 'package:uuid/uuid.dart';
@@ -155,6 +156,8 @@ class OrderController extends GetxController {
     return 1.0;
   }
 
+  //User update Function
+
   void updateUser() async {
     final uId = FirebaseAuth.instance.currentUser.uid;
     await _firestore.collection('users').doc(uId).update({
@@ -168,7 +171,7 @@ class OrderController extends GetxController {
       actions: [
         TextButton(
           onPressed: () {
-            Get.offAll(HomePage());
+            Get.offAll(AccountPage());
           },
           child: Text('GOT IT'),
         ),

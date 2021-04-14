@@ -21,6 +21,7 @@ class ProductDetailsPage extends StatelessWidget {
     var scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(
       key: scaffoldKey,
+      // appBar: AppBar(),
       drawer: DrawerComponent(),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
@@ -238,7 +239,7 @@ class ProductDetailsPage extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        'Generecs',
+                                        'Category',
                                         style: TextStyle(
                                           fontSize: 18,
                                           color: Color(0xFFD2D2D2),
@@ -249,7 +250,7 @@ class ProductDetailsPage extends StatelessWidget {
                                         height: 10,
                                       ),
                                       Text(
-                                        '${item['generecs']}',
+                                        '${item['category']}',
                                         style: TextStyle(
                                           fontSize: 22,
                                           fontWeight: FontWeight.bold,

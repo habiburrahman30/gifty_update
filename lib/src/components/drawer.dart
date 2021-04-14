@@ -79,7 +79,7 @@ class DrawerComponent extends StatelessWidget {
                         ),
                         ListTile(
                           title: Text(
-                            'Featured',
+                            'New on Store',
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -97,7 +97,7 @@ class DrawerComponent extends StatelessWidget {
                         ),
                         ListTile(
                           title: Text(
-                            'Handicrafts',
+                            'Handicraft',
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -106,7 +106,7 @@ class DrawerComponent extends StatelessWidget {
                         ),
                         ListTile(
                           title: Text(
-                            'Love Corner',
+                            'Home Decor',
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -115,7 +115,7 @@ class DrawerComponent extends StatelessWidget {
                         ),
                         ListTile(
                           title: Text(
-                            'Notebook',
+                            'Antique',
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,

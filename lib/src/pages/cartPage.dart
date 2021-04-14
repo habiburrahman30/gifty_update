@@ -1,3 +1,4 @@
+import 'package:gifty/src/config/appTheme.dart';
 import 'package:gifty/src/controllers/cartController.dart';
 import 'package:gifty/src/pages/checkoutPage.dart';
 import 'package:flutter/material.dart';
@@ -295,33 +296,51 @@ class CartPage extends StatelessWidget {
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  FlatButton.icon(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 20,
-                                      vertical: 8,
-                                    ),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    label: Text(
-                                      'Proceed to Checkout',
-                                      style: TextStyle(
-                                        //color: Colors.white,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
+                                  Container(
+                                    width: Get.width / 1.5,
+                                    child: TextButton(
+                                      style: TextButton.styleFrom(
+                                        backgroundColor: Colors.white,
+                                        primary: Colors.black,
+                                        padding: EdgeInsets.symmetric(
+                                          vertical: 4.0,
+                                          horizontal: 8.0,
+                                        ),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(35.0),
+                                        ),
+                                        shadowColor:
+                                            Colors.black.withOpacity(.2),
+                                      ),
+                                      onPressed: () {
+                                        Get.to(
+                                          PaymentPage(),
+                                        );
+                                      },
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Proceed to Checkout',
+                                            style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 8.0,
+                                          ),
+                                          Icon(
+                                            Icons.trending_flat,
+                                            color: Colors.black54,
+                                            size: 35,
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    color: Colors.white,
-                                    icon: Icon(
-                                      Icons.shopping_cart_outlined,
-                                      //color: Colors.white,
-                                    ),
-                                    onPressed: () {
-                                      Get.to(
-                                        PaymentPage(),
-                                      );
-                                    },
-                                  )
+                                  ),
                                 ],
                               ),
                             ),

@@ -130,7 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                                       ),
                                     ),
                                     Text(
-                                      'Rememberme',
+                                      'Remember me?',
                                       style: TextStyle(
                                         fontSize: 14,
                                       ),
@@ -145,7 +145,7 @@ class _LoginPageState extends State<LoginPage> {
                                   );
                                 },
                                 child: Text(
-                                  'Forgot Password ?',
+                                  'Forgot password?',
                                   style: TextStyle(
                                     fontSize: 14,
                                   ),
@@ -263,7 +263,7 @@ class _LoginPageState extends State<LoginPage> {
                             ],
                           ),
                           SizedBox(
-                            height: 70,
+                            height: 25,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,

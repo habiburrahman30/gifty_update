@@ -297,12 +297,18 @@ class _HomePageState extends State<HomePage> {
                                               SizedBox(
                                                 height: 10,
                                               ),
-                                              Text(
-                                                '${item['title']}',
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 25,
-                                                  fontWeight: FontWeight.bold,
+                                              Container(
+                                                width: 180,
+                                                child: Text(
+                                                  '${item['title']} and remote module providerinstaller',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 22,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                 ),
                                               ),
                                               SizedBox(

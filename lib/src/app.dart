@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:gifty/src/GetXHelper/InstanceBinding.dart';
 import 'package:gifty/src/GetXHelper/isSignedIn.dart';
@@ -31,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   displaySplash() {
-    Timer(Duration(seconds: 1020), () async {
+    Timer(Duration(seconds: 3), () async {
       Get.to(
         () => IsSignedIn(),
       );
@@ -47,9 +46,22 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
         child: Center(
           child: Container(
-            child: Image.asset(
-              'assets/images/gifty.png',
-              width: 200,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/images/gifty.png',
+                  width: 150,
+                ),
+                Text(
+                  'The Gifty App'.toUpperCase(),
+                  style: TextStyle(
+                    fontSize: 35.0,
+                    fontWeight: FontWeight.w600,
+                  ),
+                )
+              ],
             ),
             // child: SvgPicture.asset(
             //   'assets/svg/logo.svg',
