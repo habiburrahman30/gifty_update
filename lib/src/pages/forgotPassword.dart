@@ -9,7 +9,13 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-class ForgotPassword extends GetWidget<FirebaseController> {
+class ForgotPassword extends StatefulWidget {
+  @override
+  _ForgotPasswordState createState() => _ForgotPasswordState();
+}
+
+class _ForgotPasswordState extends State<ForgotPassword> {
+  final _firebaseC = Get.put(FirebaseController(), permanent: true);
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -19,8 +25,6 @@ class ForgotPassword extends GetWidget<FirebaseController> {
 
     return Scaffold(
       body: SingleChildScrollView(
-        // physics: BouncingScrollPhysics(),
-
         child: Container(
           child: Stack(
             children: [
@@ -79,30 +83,29 @@ class ForgotPassword extends GetWidget<FirebaseController> {
                                 )
                               ],
                             ),
-                            child: FlatButton(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 20,
-                                vertical: 12,
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(40),
-                              ),
-                              color: AppTheme.color1,
-                              child: Container(
-                                width: Get.width / 3.2,
-                                child: Center(
-                                  child: Text(
-                                    'Reset Password',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                    ),
-                                  ),
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                backgroundColor: AppTheme.color1,
+                                primary: Colors.white,
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 25.0,
+                                  vertical: 10.0,
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(35.0),
                                 ),
                               ),
                               onPressed: () {
-                                controller.sendPasswordResetEmail(email.text);
+                                _firebaseC.sendPasswordResetEmail(email.text);
                               },
+                              child: Text(
+                                'Reset Password',
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                ),
+                              ),
                             ),
                           ),
                           SizedBox(
@@ -153,13 +156,13 @@ class ForgotPassword extends GetWidget<FirebaseController> {
                                   color: Colors.white,
                                 ),
                                 onPressed: () {
-                                  print('Google');
+                                  _firebaseC.signInWithGoogle();
                                 },
                               ),
                             ],
                           ),
                           SizedBox(
-                            height: 115,
+                            height: 60,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -167,7 +170,7 @@ class ForgotPassword extends GetWidget<FirebaseController> {
                               Text(
                                 "Don't have an account?",
                                 style: TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 16,
                                 ),
                               ),
                               FlatButton(
@@ -185,7 +188,7 @@ class ForgotPassword extends GetWidget<FirebaseController> {
                                   'Sign Up',
                                   style: TextStyle(
                                     color: Colors.blueAccent,
-                                    fontSize: 18,
+                                    fontSize: 16,
                                   ),
                                 ),
                               )

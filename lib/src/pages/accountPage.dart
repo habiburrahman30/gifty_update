@@ -1,9 +1,11 @@
+import 'package:gifty/src/components/advanceCustomAlert.dart';
 import 'package:gifty/src/config/appTheme.dart';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:gifty/src/controllers/orderController.dart';
+import 'package:gifty/src/pages/settingPage.dart';
 
 class AccountPage extends StatefulWidget {
   @override
@@ -16,40 +18,16 @@ class _AccountPageState extends State<AccountPage> {
     final _orderC = Get.put(OrderController());
     _orderC.setData();
 
-    // File _image;
-    // final picker = ImagePicker();
-    // // bool isLoading = false;
-
-    // Future getImage() async {
-    //   final pickedFile = await picker.getImage(source: ImageSource.camera);
-
-    //   setState(() {
-    //     if (pickedFile != null) {
-    //       _image = File(pickedFile.path);
-    //     } else {
-    //       print('No image selected.');
-    //     }
-    //   });
-    // }
-
     return Scaffold(
       body: SingleChildScrollView(
         child: Obx(
           () => Column(
             children: [
               Container(
-                height: 200,
+                height: 210,
                 width: Get.width,
                 decoration: BoxDecoration(
                   color: AppTheme.color1,
-                  // gradient: LinearGradient(
-                  //   begin: Alignment.topLeft,
-                  //   end: Alignment.bottomRight,
-                  //   colors: [
-                  //     AppTheme.color1,
-                  //     // AppTheme.color2,
-                  //   ],
-                  // ),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -66,7 +44,7 @@ class _AccountPageState extends State<AccountPage> {
                           color: Colors.white,
                         ),
                         onPressed: () {
-                          Get.back();
+                          Get.to(() => SerttingPage());
                         },
                       ),
                     ),
@@ -90,47 +68,77 @@ class _AccountPageState extends State<AccountPage> {
                                     height: 80,
                                     width: 80,
                                     decoration: BoxDecoration(),
-                                    child: Icon(Icons.camera_alt),
-                                  ),
-                                ),
-                                Positioned(
-                                  right: -8,
-                                  top: 5,
-                                  child: GestureDetector(
-                                    onTap: () {},
-                                    child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: 5,
-                                        vertical: 5,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: Colors.black.withOpacity(0.3),
-                                        borderRadius: BorderRadius.circular(44),
-                                      ),
-                                      child: Icon(
-                                        Icons.camera_alt_outlined,
-                                        color: Colors.white,
-                                        size: 20,
-                                      ),
+                                    child: Icon(
+                                      Icons.camera_alt,
+                                      color: Colors.grey[350],
                                     ),
                                   ),
-                                )
+                                ),
+                                //   Positioned(
+                                //     right: -8,
+                                //     top: 5,
+                                //     child: GestureDetector(
+                                //       onTap: () {},
+                                //       child: Container(
+                                //         padding: EdgeInsets.symmetric(
+                                //           horizontal: 5,
+                                //           vertical: 5,
+                                //         ),
+                                //         decoration: BoxDecoration(
+                                //           color: Colors.black.withOpacity(0.3),
+                                //           borderRadius: BorderRadius.circular(44),
+                                //         ),
+                                //         child: Icon(
+                                //           Icons.camera_alt_outlined,
+                                //           color: Colors.white,
+                                //           size: 20,
+                                //         ),
+                                //       ),
+                                //     ),
+                                //   )
                               ],
                             ),
                           ),
                           SizedBox(
-                            height: 10,
+                            height: 8,
                           ),
-                          Text(
-                            _orderC.senderName.value,
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                _orderC.senderName.value,
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              Container(
+                                height: 25,
+                                margin: EdgeInsets.only(
+                                  bottom: 5,
+                                ),
+                                child: TextButton(
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (contex) {
+                                        return AdvanceCustomAlert();
+                                      },
+                                    );
+                                  },
+                                  child: FaIcon(
+                                    FontAwesomeIcons.edit,
+                                    size: 15,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                           SizedBox(
-                            height: 10,
+                            height: 7,
                           ),
                         ],
                       ),
@@ -155,208 +163,35 @@ class _AccountPageState extends State<AccountPage> {
                 ),
                 child: Column(
                   children: [
-                    Container(
-                      child: FlatButton(
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                scrollable: true,
-
-                                // title: Text('Your Name'),
-                                content: Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Form(
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          child: Stack(
-                                            clipBehavior: Clip.none,
-                                            children: [
-                                              Container(
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(44),
-                                                  border: Border.all(
-                                                    color: Colors.black54,
-                                                    width: 2,
-                                                  ),
-                                                ),
-                                                child: Container(
-                                                  height: 80,
-                                                  width: 80,
-                                                  decoration: BoxDecoration(),
-                                                  child: Icon(Icons.camera_alt),
-                                                ),
-                                              ),
-                                              Positioned(
-                                                right: -8,
-                                                top: 5,
-                                                child: GestureDetector(
-                                                  onTap: () {},
-                                                  child: Container(
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                      horizontal: 5,
-                                                      vertical: 5,
-                                                    ),
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.black
-                                                          .withOpacity(0.3),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              44),
-                                                    ),
-                                                    child: Icon(
-                                                      Icons.camera_alt_outlined,
-                                                      color: Colors.white,
-                                                      size: 20,
-                                                    ),
-                                                  ),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 15.0,
-                                        ),
-                                        CustomTextField(
-                                          initalText: _orderC.senderName.value,
-                                          hintText: 'Name',
-                                          errorText:
-                                              _orderC.senderName.value.length >
-                                                          6 ||
-                                                      _orderC.senderName.value
-                                                          .isEmpty
-                                                  ? null
-                                                  : 'Please enter your name',
-                                          suffixIcon: Icon(
-                                            Icons.person,
-                                            color: Color(0xFF4F8188),
-                                          ),
-                                          onChanged: _orderC.senderName,
-                                          keyboardType: TextInputType.text,
-                                          textInputAction: TextInputAction.next,
-                                        ),
-                                        SizedBox(
-                                          height: 15.0,
-                                        ),
-                                        CustomTextField(
-                                          initalText: _orderC.senderEmail.value,
-                                          hintText: 'Email',
-                                          errorText: _orderC.senderEmail.value
-                                                      .isEmail ||
-                                                  _orderC
-                                                      .senderEmail.value.isEmpty
-                                              ? null
-                                              : 'Please enter your Email',
-                                          suffixIcon: Icon(
-                                            Icons.person,
-                                            color: Color(0xFF4F8188),
-                                          ),
-                                          onChanged: _orderC.senderEmail,
-                                          keyboardType: TextInputType.text,
-                                          textInputAction: TextInputAction.next,
-                                        ),
-                                        SizedBox(
-                                          height: 15.0,
-                                        ),
-                                        CustomTextField(
-                                          initalText: _orderC.senderPhone.value,
-                                          hintText: 'Phone',
-                                          errorText: _orderC.senderPhone.value
-                                                      .isNotEmpty &&
-                                                  _orderC.senderPhone.value
-                                                          .length ==
-                                                      11
-                                              ? null
-                                              : _orderC
-                                                      .senderPhone.value.isEmpty
-                                                  ? null
-                                                  : 'Phone number should be at least 11 character',
-                                          suffixIcon: Icon(
-                                            Icons.phone,
-                                            color: Color(0xFF4F8188),
-                                          ),
-                                          onChanged: _orderC.senderPhone,
-                                          keyboardType: TextInputType.text,
-                                          textInputAction: TextInputAction.next,
-                                        ),
-                                        SizedBox(
-                                          height: 15.0,
-                                        ),
-                                        CustomTextField(
-                                          initalText:
-                                              _orderC.senderAddress.value ==
-                                                      null
-                                                  ? 'Add your address'
-                                                  : _orderC.senderAddress.value,
-                                          hintText: 'Address',
-                                          onChanged: _orderC.senderAddress,
-                                          suffixIcon: Icon(
-                                            Icons.location_on_outlined,
-                                            color: Color(0xFF4F8188),
-                                          ),
-                                          keyboardType: TextInputType.text,
-                                          textInputAction: TextInputAction.done,
-                                          maxLines: 3,
-                                          hasMaxLines: true,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                actions: [
-                                  TextButton(
-                                    style: TextButton.styleFrom(
-                                      backgroundColor: AppTheme.color1,
-                                      // backgroundColor: Colors.white,
-                                      primary: Colors.black,
-                                      padding: EdgeInsets.symmetric(
-                                        vertical: 8.0,
-                                        horizontal: 10.0,
-                                      ),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(35.0),
-                                      ),
-                                      shadowColor: Colors.black.withOpacity(.2),
-                                    ),
-                                    onPressed: () {
-                                      _orderC.updateUser();
-                                    },
-                                    child: Text(
-                                      'Submit',
-                                      style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        },
-                        child: FaIcon(
-                          FontAwesomeIcons.edit,
-                          size: 20,
-                          color: Colors.blueAccent,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 30.0,
-                    ),
+                    // Container(
+                    //   child: TextButton(
+                    //     onPressed: () {
+                    //       showDialog(
+                    //         context: context,
+                    //         builder: (contex) {
+                    //           return AdvanceCustomAlert();
+                    //         },
+                    //       );
+                    //     },
+                    //     child: FaIcon(
+                    //       FontAwesomeIcons.edit,
+                    //       size: 20,
+                    //       color: Colors.blueAccent,
+                    //     ),
+                    //   ),
+                    // ),
+                    // SizedBox(
+                    //   height: 30.0,
+                    // ),
                     Obx(
                       () {
                         return Container(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              SizedBox(
+                                height: 15.0,
+                              ),
                               Container(
                                 width: Get.width,
                                 padding: EdgeInsets.fromLTRB(20, 12, 20, 12),
@@ -482,61 +317,10 @@ class _AccountPageState extends State<AccountPage> {
                               SizedBox(
                                 height: 20.0,
                               ),
-
-                              //=========================
-                              // CustomTextField(
-                              //   initalText: _orderC.senderName.value,
-                              //   hintText: 'Your name',
-                              //   suffixIcon: Icon(Icons.person),
-                              //   keyboardType: TextInputType.name,
-                              //   textInputAction: TextInputAction.next,
-                              // ),
-                              // SizedBox(
-                              //   height: 20,
-                              // ),
-                              // CustomTextField(
-                              //   initalText: _orderC.senderEmail.value,
-                              //   hintText: 'Your email',
-                              //   suffixIcon: Icon(Icons.email),
-                              //   keyboardType: TextInputType.emailAddress,
-                              //   textInputAction: TextInputAction.next,
-                              // ),
-                              // SizedBox(
-                              //   height: 20,
-                              // ),
-                              // CustomTextField(
-                              //   initalText: _orderC.senderPhone.value,
-                              //   hintText: '+8801XXXXXXXXX',
-                              //   suffixIcon: Icon(
-                              //     Icons.mobile_friendly_sharp,
-                              //   ),
-                              //   keyboardType: TextInputType.phone,
-                              //   textInputAction: TextInputAction.done,
-                              // ),
-                              // SizedBox(
-                              //   height: 20,
-                              // ),
-                              // CustomTextField(
-                              //   initalText: _orderC.senderAddress.value == null
-                              //       ? 'Your address'
-                              //       : _orderC.senderAddress.value,
-                              //   hintText: 'Address',
-                              //   suffixIcon: Icon(Icons.location_on_outlined),
-                              //   keyboardType: TextInputType.streetAddress,
-                              //   textInputAction: TextInputAction.next,
-                              //   maxLines: 4,
-                              //   hasMaxLines: true,
-                              // ),
-                              // SizedBox(
-                              //   height: 20.0,
-                              // ),
                             ],
                           ),
                         );
                       },
-                    ),
-                    SizedBox(
-                      height: 30.0,
                     ),
                   ],
                 ),

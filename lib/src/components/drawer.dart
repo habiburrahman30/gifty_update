@@ -10,7 +10,7 @@ class DrawerComponent extends StatelessWidget {
       child: SingleChildScrollView(
         child: Container(
           color: AppTheme.bodyBg,
-          height: Get.height,
+          // height: Get.height,
           child: Stack(
             children: [
               Positioned(
@@ -81,7 +81,7 @@ class DrawerComponent extends StatelessWidget {
                           title: Text(
                             'New on Store',
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -90,7 +90,7 @@ class DrawerComponent extends StatelessWidget {
                           title: Text(
                             'Chocolate',
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -99,7 +99,7 @@ class DrawerComponent extends StatelessWidget {
                           title: Text(
                             'Handicraft',
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -108,7 +108,7 @@ class DrawerComponent extends StatelessWidget {
                           title: Text(
                             'Home Decor',
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -117,7 +117,7 @@ class DrawerComponent extends StatelessWidget {
                           title: Text(
                             'Antique',
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -126,7 +126,7 @@ class DrawerComponent extends StatelessWidget {
                           title: Text(
                             'Corporate Gifts',
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -135,7 +135,7 @@ class DrawerComponent extends StatelessWidget {
                           title: Text(
                             'Jewelry',
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -144,7 +144,7 @@ class DrawerComponent extends StatelessWidget {
                           title: Text(
                             'Watches',
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -153,7 +153,7 @@ class DrawerComponent extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 40,
+                    height: 30,
                   ),
                   Container(
                     padding: EdgeInsets.only(bottom: 40),
@@ -161,7 +161,7 @@ class DrawerComponent extends StatelessWidget {
                       title: Text(
                         'Settings',
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

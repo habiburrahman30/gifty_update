@@ -5,7 +5,6 @@ import 'package:gifty/src/controllers/firebaseController.dart';
 import 'package:gifty/src/models/cartModel.dart';
 import 'package:gifty/src/pages/cartPage.dart';
 import 'package:gifty/src/pages/productDetailsPage.dart';
-// import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -71,7 +70,7 @@ class _HomePageState extends State<HomePage> {
                   child: Text(
                     'Swipe for next Gift',
                     style: TextStyle(
-                      fontSize: 35,
+                      fontSize: 30,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -263,7 +262,7 @@ class _HomePageState extends State<HomePage> {
                                           ],
                                         ),
                                         SizedBox(
-                                          height: 45,
+                                          height: 35,
                                         ),
                                         Container(
                                           margin: EdgeInsets.symmetric(
@@ -290,7 +289,7 @@ class _HomePageState extends State<HomePage> {
                                                 '${item['category']}',
                                                 style: TextStyle(
                                                   color: Colors.white,
-                                                  fontSize: 16,
+                                                  fontSize: 14,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
@@ -303,8 +302,8 @@ class _HomePageState extends State<HomePage> {
                                                   '${item['title']} and remote module providerinstaller',
                                                   style: TextStyle(
                                                     color: Colors.white,
-                                                    fontSize: 22,
-                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w600,
                                                   ),
                                                   maxLines: 1,
                                                   overflow:
@@ -318,7 +317,7 @@ class _HomePageState extends State<HomePage> {
                                                 '${item['weight']} / \৳${item['price']}',
                                                 style: TextStyle(
                                                   color: Colors.white,
-                                                  fontSize: 20,
+                                                  fontSize: 16,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
@@ -517,7 +516,7 @@ class _HomePageState extends State<HomePage> {
                                           ],
                                         ),
                                         SizedBox(
-                                          height: 45,
+                                          height: 35,
                                         ),
                                         Container(
                                           margin: EdgeInsets.symmetric(
@@ -544,7 +543,7 @@ class _HomePageState extends State<HomePage> {
                                                 '${item['category']}',
                                                 style: TextStyle(
                                                   color: Colors.white,
-                                                  fontSize: 16,
+                                                  fontSize: 14,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
@@ -555,8 +554,8 @@ class _HomePageState extends State<HomePage> {
                                                 '${item['title']}',
                                                 style: TextStyle(
                                                   color: Colors.white,
-                                                  fontSize: 25,
-                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w600,
                                                 ),
                                               ),
                                               SizedBox(
@@ -566,7 +565,7 @@ class _HomePageState extends State<HomePage> {
                                                 '${item['weight']} / \৳${item['price']}',
                                                 style: TextStyle(
                                                   color: Colors.white,
-                                                  fontSize: 20,
+                                                  fontSize: 16,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
@@ -716,7 +715,7 @@ class _HomePageState extends State<HomePage> {
                                           ],
                                         ),
                                         SizedBox(
-                                          height: 45,
+                                          height: 35,
                                         ),
                                         Container(
                                           margin: EdgeInsets.symmetric(
@@ -743,7 +742,7 @@ class _HomePageState extends State<HomePage> {
                                                 '${item['category']}',
                                                 style: TextStyle(
                                                   color: Colors.white,
-                                                  fontSize: 16,
+                                                  fontSize: 14,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
@@ -754,8 +753,8 @@ class _HomePageState extends State<HomePage> {
                                                 '${item['title']}',
                                                 style: TextStyle(
                                                   color: Colors.white,
-                                                  fontSize: 25,
-                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w600,
                                                 ),
                                               ),
                                               SizedBox(
@@ -765,7 +764,7 @@ class _HomePageState extends State<HomePage> {
                                                 '${item['weight']} / \৳${item['price']}',
                                                 style: TextStyle(
                                                   color: Colors.white,
-                                                  fontSize: 20,
+                                                  fontSize: 16,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
@@ -784,164 +783,6 @@ class _HomePageState extends State<HomePage> {
                     ),
 
                     //Popular Tab Section
-
-                    //Trending Section
-
-                    // Container(
-                    //   child: ListView.builder(
-                    //     physics: BouncingScrollPhysics(),
-                    //     scrollDirection: Axis.horizontal,
-                    //     itemCount: 5,
-                    //     itemBuilder: (BuildContext context, int index) {
-                    //       //final item = snapshot.data.docs[index];
-                    //       return GestureDetector(
-                    //         onTap: () {},
-                    //         child: Container(
-                    //           margin: EdgeInsets.only(left: 20),
-                    //           padding: EdgeInsets.only(left: 15, right: 15),
-                    //           decoration: BoxDecoration(
-                    //             color: Color(0xFF4F8188),
-                    //             borderRadius: BorderRadius.circular(180),
-                    //           ),
-                    //           child: Column(
-                    //             crossAxisAlignment: CrossAxisAlignment.start,
-                    //             children: [
-                    //               Stack(
-                    //                 children: [
-                    //                   Align(
-                    //                     alignment: Alignment.topCenter,
-                    //                     child: Container(
-                    //                       margin: EdgeInsets.symmetric(
-                    //                         vertical: 15,
-                    //                       ),
-                    //                       height: 220,
-                    //                       width: 220,
-                    //                       decoration: BoxDecoration(
-                    //                         color: Color(0xFF6ca495),
-                    //                         borderRadius:
-                    //                             BorderRadius.circular(125),
-                    //                         boxShadow: [
-                    //                           BoxShadow(
-                    //                             color: const Color(0xcc000000)
-                    //                                 .withOpacity(0.5),
-                    //                             offset: Offset(3, 5),
-                    //                             blurRadius: 20,
-                    //                           ),
-                    //                         ],
-                    //                       ),
-                    //                       child: Image.asset(
-                    //                           'assets/images/flower1.png'),
-                    //                     ),
-                    //                   ),
-                    //                   Positioned(
-                    //                     right: 0,
-                    //                     bottom: 20,
-                    //                     child: GestureDetector(
-                    //                       onTap: () {
-                    //                         print('Add to Card');
-                    //                       },
-                    //                       child: CircleAvatar(
-                    //                         maxRadius: 35,
-                    //                         backgroundColor:
-                    //                             Colors.white.withOpacity(0.7),
-                    //                         child: Padding(
-                    //                           padding: const EdgeInsets.only(
-                    //                             left: 5,
-                    //                           ),
-                    //                           child: SvgPicture.asset(
-                    //                             'assets/svg/cart-plus.svg',
-                    //                             width: 35,
-                    //                             color: Color(0xFF4F8188),
-                    //                           ),
-                    //                         ),
-                    //                       ),
-                    //                     ),
-                    //                   )
-                    //                 ],
-                    //               ),
-                    //               SizedBox(
-                    //                 height: 45,
-                    //               ),
-                    //               Container(
-                    //                 margin:
-                    //                     EdgeInsets.symmetric(horizontal: 16),
-                    //                 child: Column(
-                    //                   crossAxisAlignment:
-                    //                       CrossAxisAlignment.start,
-                    //                   children: [
-                    //                     Row(
-                    //                       children: [
-                    //                         RatingBarIndicator(
-                    //                           rating: 2.75,
-                    //                           itemBuilder: (context, index) =>
-                    //                               Icon(
-                    //                             Icons.star,
-                    //                             color: Colors.amber,
-                    //                           ),
-                    //                           itemCount: 5,
-                    //                           itemSize: 16.0,
-                    //                           direction: Axis.horizontal,
-                    //                         ),
-                    //                         SizedBox(
-                    //                           width: 18,
-                    //                         ),
-                    //                         FlatButton(
-                    //                           height: 20,
-                    //                           minWidth: 20,
-                    //                           color: Color(0xFF6ca495),
-                    //                           onPressed: () {},
-                    //                           child: Text(
-                    //                             'Featured',
-                    //                             style: TextStyle(
-                    //                               color: Colors.white,
-                    //                             ),
-                    //                           ),
-                    //                         )
-                    //                       ],
-                    //                     ),
-                    //                     SizedBox(
-                    //                       height: 5,
-                    //                     ),
-                    //                     Text(
-                    //                       'Category',
-                    //                       style: TextStyle(
-                    //                         color: Color(0xFFBED5B9),
-                    //                         fontSize: 16,
-                    //                         fontWeight: FontWeight.bold,
-                    //                       ),
-                    //                     ),
-                    //                     SizedBox(
-                    //                       height: 10,
-                    //                     ),
-                    //                     Text(
-                    //                       'New Product',
-                    //                       style: TextStyle(
-                    //                         color: Colors.white,
-                    //                         fontSize: 25,
-                    //                         fontWeight: FontWeight.bold,
-                    //                       ),
-                    //                     ),
-                    //                     SizedBox(
-                    //                       height: 8,
-                    //                     ),
-                    //                     Text(
-                    //                       '10z / \৳12',
-                    //                       style: TextStyle(
-                    //                         color: Color(0xFFBED5B9),
-                    //                         fontSize: 20,
-                    //                         fontWeight: FontWeight.bold,
-                    //                       ),
-                    //                     ),
-                    //                   ],
-                    //                 ),
-                    //               ),
-                    //             ],
-                    //           ),
-                    //         ),
-                    //       );
-                    //     },
-                    //   ),
-                    // ),
                   ],
                 ),
               ),

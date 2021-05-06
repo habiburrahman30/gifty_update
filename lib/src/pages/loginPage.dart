@@ -19,9 +19,11 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _authC = Get.put(AuthController(), permanent: true);
+  final _firebaseC = Get.put(FirebaseController(), permanent: true);
 
   @override
   void dispose() {
+    _authC.rememberMe.value = false;
     super.dispose();
   }
 
@@ -90,6 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                                 borderRadius: BorderRadius.circular(25.7),
                               ),
                             ),
+                            textInputAction: TextInputAction.next,
                           ),
                           SizedBox(
                             height: 20,
@@ -101,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                                           .passwordLogin.value.isNotEmpty &&
                                       _authC.passwordLogin.value.length >= 6
                                   ? null
-                                  : _authC.emailLogin.value.isEmpty
+                                  : _authC.passwordLogin.value.isEmpty
                                       ? null
                                       : 'Password should be at least 6 character',
                               filled: true,
@@ -114,6 +117,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                             obscureText: true,
+                            textInputAction: TextInputAction.send,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -125,8 +129,11 @@ class _LoginPageState extends State<LoginPage> {
                                       scale: .7,
                                       child: CupertinoSwitch(
                                         activeColor: AppTheme.color1,
-                                        value: false,
-                                        onChanged: (bool value) {},
+                                        value: _authC.rememberMe.value,
+                                        onChanged: (bool value) {
+                                          _authC.manageRememberMe();
+                                          print(_authC.rememberMe.value);
+                                        },
                                       ),
                                     ),
                                     Text(
@@ -154,7 +161,7 @@ class _LoginPageState extends State<LoginPage> {
                             ],
                           ),
                           SizedBox(
-                            height: 30,
+                            height: 25,
                           ),
                           Container(
                             decoration: BoxDecoration(
@@ -167,34 +174,36 @@ class _LoginPageState extends State<LoginPage> {
                                 )
                               ],
                             ),
-                          ),
-                          FlatButton(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 40,
-                              vertical: 10,
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(40),
-                            ),
-                            disabledColor: Color(0xFF4F8188).withOpacity(.2),
-                            color: AppTheme.color1,
-                            child: Container(
-                              width: 70.0,
-                              child: Center(
-                                child: Text(
-                                  'Login',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                  ),
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                backgroundColor:
+                                    _authC.passwordLogin.value.length >= 6 &&
+                                            _authC.emailLogin.value.isEmail
+                                        ? AppTheme.color1
+                                        : Colors.grey[350],
+                                primary: Colors.white,
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 30.0,
+                                  vertical: 10.0,
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(35.0),
+                                ),
+                              ),
+                              onPressed: _authC.loginButtonValidCheck()
+                                  ? () {
+                                      _authC.login();
+                                    }
+                                  : null,
+                              child: Text(
+                                'Log in',
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
                                 ),
                               ),
                             ),
-                            onPressed: _authC.loginButtonValidCheck()
-                                ? () {
-                                    _authC.login();
-                                  }
-                                : null,
                           ),
                           SizedBox(
                             height: 40,
@@ -241,7 +250,9 @@ class _LoginPageState extends State<LoginPage> {
                                   FontAwesomeIcons.google,
                                   color: Colors.white,
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  _firebaseC.signInWithGoogle();
+                                },
                               ),
                               FlatButton(
                                 padding: EdgeInsets.symmetric(
@@ -249,7 +260,7 @@ class _LoginPageState extends State<LoginPage> {
                                   vertical: 10,
                                 ),
                                 shape: CircleBorder(),
-                                color: Color(0xFF4F8188),
+                                color: Colors.green[400],
                                 child: FaIcon(
                                   FontAwesomeIcons.phone,
                                   color: Colors.white,
@@ -271,7 +282,7 @@ class _LoginPageState extends State<LoginPage> {
                               Text(
                                 "Don't have an account?",
                                 style: TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 16,
                                 ),
                               ),
                               FlatButton(
@@ -289,7 +300,7 @@ class _LoginPageState extends State<LoginPage> {
                                   'Sign Up',
                                   style: TextStyle(
                                     color: Colors.blueAccent,
-                                    fontSize: 18,
+                                    fontSize: 16,
                                   ),
                                 ),
                               )

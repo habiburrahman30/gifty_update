@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:gifty/src/controllers/cartController.dart';
 import 'package:gifty/src/controllers/firebaseController.dart';
 import 'package:gifty/src/pages/accountPage.dart';
-import 'package:gifty/src/pages/homePage.dart';
 import 'package:gifty/src/pages/thankuPage.dart';
 import 'package:uuid/uuid.dart';
 

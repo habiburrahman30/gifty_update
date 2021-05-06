@@ -144,7 +144,7 @@ class Order extends StatelessWidget {
 
                     return SingleChildScrollView(
                       child: Stack(
-                        overflow: Overflow.clip,
+                        clipBehavior: Clip.none,
                         children: [
                           Container(
                             margin: EdgeInsets.only(

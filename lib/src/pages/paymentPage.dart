@@ -178,7 +178,7 @@ class _PaymentPageState extends State<PaymentPage> {
                             Text(
                               'bKash payment',
                               style: TextStyle(
-                                fontSize: 22.0,
+                                fontSize: 16.0,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
@@ -187,7 +187,7 @@ class _PaymentPageState extends State<PaymentPage> {
                             ),
                             SvgPicture.asset(
                               'assets/svg/BKashLogo.svg',
-                              height: 80,
+                              height: 65,
                             )
                           ],
                         ),
@@ -237,16 +237,16 @@ class _PaymentPageState extends State<PaymentPage> {
                             Text(
                               'Cash on Delivery',
                               style: TextStyle(
-                                fontSize: 22.0,
+                                fontSize: 16.0,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
-                            // SizedBox(
-                            //   width: 30.0,
-                            // ),
+                            SizedBox(
+                              width: 30.0,
+                            ),
                             Icon(
                               Icons.payment,
-                              size: 45.0,
+                              size: 35.0,
                               color: AppTheme.color1.withOpacity(.9),
                             )
                           ],

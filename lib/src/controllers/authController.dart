@@ -17,10 +17,16 @@ class AuthController extends GetxController with Validator {
   final fullName = ''.obs;
   final email = ''.obs;
   final password = ''.obs;
+  final confirmPassword = ''.obs;
 
-  // -------------------------------
   // for Forgot Password
   final forgotPassword = ''.obs;
+
+  // for Remember Me
+  final rememberMe = false.obs;
+  manageRememberMe() {
+    rememberMe.toggle();
+  }
 
   bool loginButtonValidCheck() {
     if (emailLogin.value.isEmail && passwordLogin.value.length >= 6) {
