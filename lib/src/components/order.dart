@@ -126,7 +126,7 @@ class Order extends StatelessWidget {
                 height: 15,
               ),
               Container(
-                // height: 300,
+                height: 300,
                 child: ListView.builder(
                   physics: BouncingScrollPhysics(),
                   primary: false,
@@ -213,11 +213,11 @@ class Order extends StatelessWidget {
                             ),
                           ),
                           Positioned(
-                            left: -10,
-                            top: -5,
+                            left: 0,
+                            top: 0,
                             child: Image.network(
                               '${item.thumbnail}',
-                              width: 100,
+                              width: 80,
                             ),
                           )
                         ],
@@ -226,9 +226,9 @@ class Order extends StatelessWidget {
                   },
                 ),
               ),
-              SizedBox(
-                height: 15,
-              ),
+              // SizedBox(
+              //   height: 5,
+              // ),
               // Container(
               //   decoration: BoxDecoration(
               //     border: Border(
