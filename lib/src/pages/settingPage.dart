@@ -141,89 +141,63 @@ class SerttingPage extends GetWidget<FirebaseController> {
                         },
                       ),
                     ),
-                    // Card(
-                    //   child: ListTile(
-                    //     leading: Icon(
-                    //       Icons.map_outlined,
-                    //     ),
-                    //     title: Text(
-                    //       'My Address',
-                    //     ),
-                    //     trailing: Icon(
-                    //       Icons.keyboard_arrow_right,
-                    //     ),
-                    //     onTap: () {
-                    //       Get.to(
-                    //         Address(),
-                    //       );
-                    //     },
-                    //   ),
-                    // ),
                   ],
                 ),
               ),
               SizedBox(
-                height: 30,
+                height: 20,
               ),
-              Container(
-                margin: EdgeInsets.symmetric(
-                  horizontal: 20,
-                ),
-                // padding: EdgeInsets.symmetric(
-                //   horizontal: 10,
-                //   vertical: 15,
-                // ),
-                // decoration: BoxDecoration(
-                //   color: Colors.grey[200],
-                //   borderRadius: BorderRadius.circular(4),
-                // ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Payment Section',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Card(
-                      child: ListTile(
-                        leading: FaIcon(
-                          FontAwesomeIcons.moneyBillWave,
-                        ),
-                        title: Text(
-                          'Purchase History',
-                        ),
-                        trailing: Icon(
-                          Icons.keyboard_arrow_right,
-                        ),
-                        onTap: () {},
-                      ),
-                    ),
-                    Card(
-                      child: ListTile(
-                        leading: Icon(
-                          Icons.account_balance,
-                        ),
-                        title: Text(
-                          'Bank Account',
-                        ),
-                        trailing: Icon(
-                          Icons.keyboard_arrow_right,
-                        ),
-                        onTap: () {},
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
+              // Container(
+              //   margin: EdgeInsets.symmetric(
+              //     horizontal: 20,
+              //   ),
+              //   child: Column(
+              //     crossAxisAlignment: CrossAxisAlignment.start,
+              //     children: [
+              //       Text(
+              //         'Payment Section',
+              //         style: TextStyle(
+              //           fontSize: 16,
+              //           fontWeight: FontWeight.bold,
+              //         ),
+              //       ),
+              //       SizedBox(
+              //         height: 20,
+              //       ),
+              //       Card(
+              //         child: ListTile(
+              //           leading: FaIcon(
+              //             FontAwesomeIcons.moneyBillWave,
+              //           ),
+              //           title: Text(
+              //             'Purchase History',
+              //           ),
+              //           trailing: Icon(
+              //             Icons.keyboard_arrow_right,
+              //           ),
+              //           onTap: () {},
+              //         ),
+              //       ),
+              //       Card(
+              //         child: ListTile(
+              //           leading: Icon(
+              //             Icons.account_balance,
+              //           ),
+              //           title: Text(
+              //             'Bank Account',
+              //           ),
+              //           trailing: Icon(
+              //             Icons.keyboard_arrow_right,
+              //           ),
+              //           onTap: () {},
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // SizedBox(
+              //   height: 30,
+              // ),
               Container(
                 margin: EdgeInsets.symmetric(
                   horizontal: 20,
@@ -259,6 +233,12 @@ class SerttingPage extends GetWidget<FirebaseController> {
                             title: Text(
                               'Location',
                             ),
+                            // subtitle: Text(
+                            //   'The Westin Dhaka, Road 45, Dhaka 1212',
+                            //   style: TextStyle(
+                            //     fontSize: 12.0,
+                            //   ),
+                            // ),
                             trailing: Switch(
                               value: _currentLocationC.locationOnOf.value,
                               activeColor: AppTheme.color1,

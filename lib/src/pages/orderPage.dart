@@ -215,14 +215,12 @@ class OrderPage extends StatelessWidget {
                                                 vertical: 3.0,
                                               ),
                                               decoration: BoxDecoration(
-                                                color: item['pending']
-                                                    ? Colors.amber[700]
-                                                    : Colors.green[400],
+                                                color: Colors.green[400],
                                                 borderRadius:
                                                     BorderRadius.circular(3),
                                               ),
                                               child: Text(
-                                                '${item['pending'] ? 'Pending' : 'Delivered'}',
+                                                '${item['status']}',
                                                 style: TextStyle(
                                                   fontSize: 12.0,
                                                   color: Colors.white,

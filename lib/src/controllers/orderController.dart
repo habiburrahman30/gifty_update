@@ -93,7 +93,7 @@ class OrderController extends GetxController {
       'senderEmail': senderEmail.value ?? null,
       'senderPhone': senderPhone.value ?? null,
       'orderItems': getCartItems(),
-      'pending': true,
+      'status': 'Pending',
       'orderId': Uuid().v1(),
       'createdAt': DateTime.now(),
     };
@@ -124,7 +124,7 @@ class OrderController extends GetxController {
   }
 
   List<Map<String, dynamic>> getCartItems() {
-    final orderItems = List<Map<String, dynamic>>();
+    final List<Map<String, dynamic>> orderItems = [];
 
     Get.put(CartController(), permanent: true).carts.forEach((cart) {
       orderItems.add({

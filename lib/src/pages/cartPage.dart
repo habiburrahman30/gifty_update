@@ -1,15 +1,22 @@
 import 'package:gifty/src/config/appTheme.dart';
 import 'package:gifty/src/controllers/cartController.dart';
-import 'package:gifty/src/pages/checkoutPage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gifty/src/pages/paymentPage.dart';
+import 'package:gifty/src/status/cart_state.dart';
+import 'package:provider/provider.dart';
 
 class CartPage extends StatelessWidget {
-  final cartController = Get.put(CartController());
+  final cartController = Get.put(CartController(), permanent: true);
+
+  final bool isCouponeUsed = false;
+  final int dicountPrice = 0;
+  final TextEditingController dicountController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    CartState _cartState = Provider.of<CartState>(context);
+
     return Scaffold(
       body: Container(
         child: Obx(
@@ -389,6 +396,72 @@ class CartPage extends StatelessWidget {
                         Icons.shopping_bag_outlined,
                         size: 30,
                       ),
+                    ],
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  color: Colors.white,
+                  padding: EdgeInsets.only(
+                    left: 20,
+                    top: 10,
+                    right: 20,
+                    bottom: 20,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Flexible(
+                        child: TextField(
+                          controller: dicountController,
+                          decoration: InputDecoration(hintText: "Coupon code"),
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 35.0,
+                      ),
+                      Flexible(
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            backgroundColor: AppTheme.color1,
+                            primary: Colors.black,
+                            padding: EdgeInsets.symmetric(
+                              vertical: 4.0,
+                              horizontal: 8.0,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(35.0),
+                            ),
+                            shadowColor: Colors.black.withOpacity(.2),
+                          ),
+                          // onPressed: () async {
+                          //   if (dicountController.text.isNotEmpty) {
+                          //     int dicount = await _cartState.applyCoupon(
+                          //       context,
+                          //       dicountController.text,
+                          //       _cartState.getCartPrice(
+                          //         carts: snapshot.data,
+                          //       ),
+                          //     );
+                          //     if (dicount != null) {
+                          //       // setState(() {
+                          //       //   isCouponeUsed = true;
+                          //       //   dicountPrice = dicount;
+                          //       // });
+                          //     }
+                          //   }
+                          // },
+                          child: Text(
+                            'Apply Coupon',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ),
