@@ -9,6 +9,7 @@ class DrawerComponent extends StatelessWidget {
     return Drawer(
       child: SingleChildScrollView(
         child: Container(
+          height: Get.height,
           color: AppTheme.bodyBg,
           // height: Get.height,
           child: Stack(

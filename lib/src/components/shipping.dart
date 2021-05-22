@@ -67,7 +67,7 @@ class _ShippingState extends State<Shipping> {
                   ),
                   CustomTextField(
                     onChanged: _orderC.name,
-                    errorText: _orderC.name.value.length > 6 ||
+                    errorText: _orderC.name.value.length > 2 ||
                             _orderC.name.value.isEmpty
                         ? null
                         : 'Please enter your name',
@@ -179,7 +179,7 @@ class _ShippingState extends State<Shipping> {
                                               onChanged: _orderC.senderName,
                                               errorText: _orderC.senderName
                                                               .value.length >
-                                                          6 ||
+                                                          2 ||
                                                       _orderC.senderName.value
                                                           .isEmpty
                                                   ? null

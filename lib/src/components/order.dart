@@ -1,8 +1,6 @@
 import 'package:gifty/src/config/appTheme.dart';
 import 'package:gifty/src/controllers/cartController.dart';
-import 'package:gifty/src/controllers/firebaseController.dart';
 import 'package:gifty/src/controllers/orderController.dart';
-import 'package:gifty/src/pages/thankuPage.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,34 +10,32 @@ class Order extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _cartController = Get.put(CartController());
-    final _firebaseController = Get.put(FirebaseController());
     final _orderC = Get.put(OrderController());
 
-    return Obx(
-      () => Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: 25,
-          vertical: 15,
-        ),
-        color: Colors.white,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Send gift to:'.toUpperCase(),
-              style: TextStyle(
-                fontSize: 15,
-                color: Colors.grey[400],
-                fontWeight: FontWeight.bold,
+    return Scaffold(
+      body: Obx(
+        () => Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: 25,
+            vertical: 15,
+          ),
+          color: Colors.white,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Send gift to:'.toUpperCase(),
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.grey[400],
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Obx(
-              () => Expanded(
-                flex: 8,
-                child: Container(
+              SizedBox(
+                height: 15,
+              ),
+              Obx(
+                () => Container(
                   child: Column(
                     children: [
                       Row(
@@ -115,24 +111,21 @@ class Order extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
-            // SizedBox(
-            //   height: 30,
-            // ),
-            Text(
-              'Your Order:'.toUpperCase(),
-              style: TextStyle(
-                fontSize: 15,
-                color: Colors.grey[400],
-                fontWeight: FontWeight.bold,
+              SizedBox(
+                height: 20,
               ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Expanded(
-              flex: 25,
-              child: Container(
+              Text(
+                'Your Order:'.toUpperCase(),
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.grey[400],
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Container(
                 // height: 300,
                 child: ListView.builder(
                   physics: BouncingScrollPhysics(),
@@ -233,86 +226,164 @@ class Order extends StatelessWidget {
                   },
                 ),
               ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    color: Colors.black,
-                  ),
-                ),
+              SizedBox(
+                height: 15,
               ),
-              padding: EdgeInsets.only(
-                top: 10,
+              // Container(
+              //   decoration: BoxDecoration(
+              //     border: Border(
+              //       top: BorderSide(
+              //         color: Colors.black,
+              //       ),
+              //     ),
+              //   ),
+              //   padding: EdgeInsets.only(
+              //     top: 10,
+              //   ),
+              //   child: Column(
+              //     children: [
+              //       Row(
+              //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //         children: [
+              //           Text(
+              //             'Order Total',
+              //             style: TextStyle(
+              //               fontSize: 18,
+              //               fontWeight: FontWeight.bold,
+              //             ),
+              //           ),
+              //           Text(
+              //             '\$${_cartController.getTotalCartPrice()}',
+              //             style: TextStyle(
+              //               fontSize: 18,
+              //               fontWeight: FontWeight.bold,
+              //             ),
+              //           ),
+              //         ],
+              //       ),
+              //       SizedBox(
+              //         height: 25,
+              //       ),
+              //       Container(
+              //         decoration: BoxDecoration(
+              //           borderRadius: BorderRadius.circular(30),
+              //           boxShadow: [
+              //             BoxShadow(
+              //               color: Colors.grey.withOpacity(0.6),
+              //               offset: Offset(0, 15),
+              //               blurRadius: 30.0,
+              //             )
+              //           ],
+              //         ),
+              //         child: RaisedButton(
+              //           padding: EdgeInsets.symmetric(
+              //             horizontal: 30,
+              //             vertical: 8,
+              //           ),
+              //           shape: RoundedRectangleBorder(
+              //             borderRadius: BorderRadius.circular(20),
+              //           ),
+              //           color: AppTheme.color1,
+              //           child: Row(
+              //             mainAxisSize: MainAxisSize.min,
+              //             children: [
+              //               Text(
+              //                 'Submit Order',
+              //                 style: TextStyle(
+              //                   color: Colors.white,
+              //                   fontSize: 16,
+              //                 ),
+              //               ),
+              //             ],
+              //           ),
+              //           onPressed: _orderC.checkValidation()
+              //               ? () => _orderC.orderNow()
+              //               : null,
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: Container(
+          height: 110,
+          color: AppTheme.color1,
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 10,
               ),
-              child: Column(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Order Total',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        '\$${_cartController.getTotalCartPrice()}',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 25,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.6),
-                          offset: Offset(0, 15),
-                          blurRadius: 30.0,
-                        )
-                      ],
+                  Text(
+                    'Order Total',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
                     ),
-                    child: RaisedButton(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 30,
-                        vertical: 8,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      color: AppTheme.color1,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            'Submit Order',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ],
-                      ),
-                      onPressed: _orderC.checkValidation()
-                          ? () => _orderC.orderNow()
-                          : null,
+                  ),
+                  Text(
+                    '\$${_cartController.getTotalCartPrice()}',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ],
               ),
-            ),
-          ],
+              SizedBox(
+                height: 15.0,
+              ),
+              Container(
+                width: Get.width / 1.5,
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    primary: Colors.black,
+                    padding: EdgeInsets.symmetric(
+                      vertical: 4.0,
+                      horizontal: 8.0,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(35.0),
+                    ),
+                    shadowColor: Colors.black.withOpacity(.2),
+                  ),
+                  onPressed: _orderC.checkValidation()
+                      ? () => _orderC.orderNow()
+                      : null,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Submit Order',
+                        style: TextStyle(
+                          color: Colors.black54,
+                          fontSize: 14,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 8.0,
+                      ),
+                      Icon(
+                        Icons.trending_flat,
+                        color: Colors.black54,
+                        size: 30,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

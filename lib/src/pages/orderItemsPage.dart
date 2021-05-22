@@ -11,8 +11,13 @@ class OrderItemsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'Order Items',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
         ),
+        centerTitle: true,
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Colors.black),
         elevation: 0,

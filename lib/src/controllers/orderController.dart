@@ -59,18 +59,18 @@ class OrderController extends GetxController {
   }
 
   bool checkValidation() {
-    if (name.value.length > 6 &&
+    if (name.value.length > 2 &&
         phone.value.length >= 11 &&
         address.value.length >= 10 &&
         date.isNotEmpty &&
         sendAnonymous.value == true) {
       return true;
-    } else if (name.value.length > 6 &&
+    } else if (name.value.length > 2 &&
         phone.value.length == 11 &&
         address.value.length >= 10 &&
         date.isNotEmpty &&
         sendAnonymous.value == false &&
-        senderName.value.length > 6 &&
+        senderName.value.length > 2 &&
         senderEmail.value.isEmail &&
         senderPhone.value.length == 11) {
       return true;
