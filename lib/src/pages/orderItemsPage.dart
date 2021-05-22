@@ -35,7 +35,7 @@ class OrderItemsPage extends StatelessWidget {
               return Column(
                 children: [
                   Stack(
-                    overflow: Overflow.clip,
+                    clipBehavior: Clip.none,
                     children: [
                       Container(
                         margin: EdgeInsets.only(
