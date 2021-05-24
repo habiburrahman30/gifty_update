@@ -1,3 +1,5 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gifty/src/models/cartModel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
@@ -5,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
+  FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final carts = List<Cart>().obs;
 
   addToCart({@required Cart cart}) {
@@ -75,5 +78,48 @@ class CartController extends GetxController {
     });
 
     return totalPrice;
+  }
+
+  //========================================
+  final isCouponeUsed = false.obs;
+  final discountPrice = 0.obs;
+
+  Future<int> applyCoupon(
+      BuildContext context, String couponCode, int totalPrice) async {
+    int dicountPrice;
+
+    try {
+      QuerySnapshot coupon = await _firestore
+          .collection('coupons')
+          .where('code', isEqualTo: couponCode)
+          .limit(1)
+          .get();
+      if (totalPrice >= 150) {
+        if (coupon.size > 0) {
+          dicountPrice = coupon.docs[0].data()['discount'];
+        } else {
+          AwesomeDialog(
+            context: context,
+            dialogType: DialogType.WARNING,
+            animType: AnimType.BOTTOMSLIDE,
+            title: 'Invalid Coupon',
+            desc: 'You have entered invalid coupon code',
+            dismissOnTouchOutside: true,
+          ).show();
+        }
+      } else {
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.WARNING,
+          animType: AnimType.BOTTOMSLIDE,
+          title: 'Oppss!',
+          desc: 'incrase the amount of order and try again',
+          dismissOnTouchOutside: true,
+        ).show();
+      }
+    } catch (e) {
+      print(e);
+    }
+    return dicountPrice;
   }
 }

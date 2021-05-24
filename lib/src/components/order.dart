@@ -157,7 +157,7 @@ class Order extends StatelessWidget {
                                 width: 1,
                                 color: Color(0xFFedeaf2),
                               ),
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: BorderRadius.circular(10),
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -214,7 +214,7 @@ class Order extends StatelessWidget {
                           ),
                           Positioned(
                             left: 0,
-                            top: 0,
+                            top: -5,
                             child: Image.network(
                               '${item.thumbnail}',
                               width: 80,
@@ -310,13 +310,38 @@ class Order extends StatelessWidget {
       ),
       bottomNavigationBar: BottomAppBar(
         child: Container(
-          height: 110,
+          height: _cartController.discountPrice.value > 0 ? 130 : 110,
           color: AppTheme.color1,
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: [
               SizedBox(
                 height: 10,
+              ),
+              if (_cartController.isCouponeUsed.value)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Discount',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    Text(
+                      '\৳ ${_cartController.discountPrice.toString()}',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              SizedBox(
+                height: 5,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -330,7 +355,7 @@ class Order extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '\$${_cartController.getTotalCartPrice()}',
+                    '\$${_cartController.getTotalCartPrice() - _cartController.discountPrice.value}',
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.white,

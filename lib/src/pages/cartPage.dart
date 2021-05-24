@@ -3,20 +3,27 @@ import 'package:gifty/src/controllers/cartController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gifty/src/pages/paymentPage.dart';
-import 'package:gifty/src/status/cart_state.dart';
-import 'package:provider/provider.dart';
 
-class CartPage extends StatelessWidget {
+class CartPage extends StatefulWidget {
+  @override
+  _CartPageState createState() => _CartPageState();
+}
+
+class _CartPageState extends State<CartPage> {
   final cartController = Get.put(CartController(), permanent: true);
 
-  final bool isCouponeUsed = false;
-  final int dicountPrice = 0;
-  final TextEditingController dicountController = TextEditingController();
+  final TextEditingController discountController = TextEditingController();
+
+  @override
+  void dispose() {
+    cartController.discountPrice.value = 0;
+    cartController.isCouponeUsed.value = false;
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    CartState _cartState = Provider.of<CartState>(context);
-
     return Scaffold(
       body: Container(
         child: Obx(
@@ -98,7 +105,7 @@ class CartPage extends StatelessWidget {
                                                     color: Color(0xFFedeaf2),
                                                   ),
                                                   borderRadius:
-                                                      BorderRadius.circular(20),
+                                                      BorderRadius.circular(10),
                                                 ),
                                                 child: Row(
                                                   mainAxisAlignment:
@@ -249,118 +256,6 @@ class CartPage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          //   Expanded(
-                          //     flex: 3,
-                          //     child: Container(
-                          //       width: Get.width,
-                          //       padding: EdgeInsets.symmetric(horizontal: 20),
-                          //       decoration: BoxDecoration(
-                          //         color: Color(0xFFEA4E5C),
-                          //       ),
-                          //       child: Column(
-                          //         children: [
-                          //           SizedBox(
-                          //             height: 10,
-                          //           ),
-                          //           Row(
-                          //             mainAxisAlignment:
-                          //                 MainAxisAlignment.spaceBetween,
-                          //             children: [
-                          //               Text(
-                          //                 'Items',
-                          //                 style: TextStyle(
-                          //                   fontSize: 18,
-                          //                   color: Colors.white,
-                          //                   fontWeight: FontWeight.bold,
-                          //                 ),
-                          //               ),
-                          //               Text(
-                          //                 cartController.carts.length.toString(),
-                          //                 style: TextStyle(
-                          //                   fontSize: 18,
-                          //                   color: Colors.white,
-                          //                   fontWeight: FontWeight.bold,
-                          //                 ),
-                          //               ),
-                          //             ],
-                          //           ),
-                          //           SizedBox(
-                          //             height: 5,
-                          //           ),
-                          //           Row(
-                          //             mainAxisAlignment:
-                          //                 MainAxisAlignment.spaceBetween,
-                          //             children: [
-                          //               Text(
-                          //                 'Total',
-                          //                 style: TextStyle(
-                          //                   fontSize: 18,
-                          //                   color: Colors.white,
-                          //                   fontWeight: FontWeight.bold,
-                          //                 ),
-                          //               ),
-                          //               Text(
-                          //                 '\৳ ${cartController.getTotalCartPrice()}',
-                          //                 style: TextStyle(
-                          //                   fontSize: 22,
-                          //                   color: Colors.white,
-                          //                   fontWeight: FontWeight.bold,
-                          //                 ),
-                          //               ),
-                          //             ],
-                          //           ),
-                          //           SizedBox(
-                          //             height: 10,
-                          //           ),
-                          //           Container(
-                          //             width: Get.width / 1.5,
-                          //             child: TextButton(
-                          //               style: TextButton.styleFrom(
-                          //                 backgroundColor: Colors.white,
-                          //                 primary: Colors.black,
-                          //                 padding: EdgeInsets.symmetric(
-                          //                   vertical: 4.0,
-                          //                   horizontal: 8.0,
-                          //                 ),
-                          //                 shape: RoundedRectangleBorder(
-                          //                   borderRadius:
-                          //                       BorderRadius.circular(35.0),
-                          //                 ),
-                          //                 shadowColor:
-                          //                     Colors.black.withOpacity(.2),
-                          //               ),
-                          //               onPressed: () {
-                          //                 Get.to(
-                          //                   PaymentPage(),
-                          //                 );
-                          //               },
-                          //               child: Row(
-                          //                 mainAxisAlignment:
-                          //                     MainAxisAlignment.center,
-                          //                 children: [
-                          //                   Text(
-                          //                     'Proceed to Checkout',
-                          //                     style: TextStyle(
-                          //                       color: Colors.black54,
-                          //                       fontSize: 16,
-                          //                     ),
-                          //                   ),
-                          //                   SizedBox(
-                          //                     width: 8.0,
-                          //                   ),
-                          //                   Icon(
-                          //                     Icons.trending_flat,
-                          //                     color: Colors.black54,
-                          //                     size: 35,
-                          //                   ),
-                          //                 ],
-                          //               ),
-                          //             ),
-                          //           ),
-                          //         ],
-                          //       ),
-                          //     ),
-                          //   ),
                         ],
                       ),
               ),
@@ -400,33 +295,172 @@ class CartPage extends StatelessWidget {
                   ),
                 ),
               ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  color: Colors.white,
-                  padding: EdgeInsets.only(
-                    left: 20,
-                    top: 10,
-                    right: 20,
-                    bottom: 20,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Flexible(
-                        child: TextField(
-                          controller: dicountController,
-                          decoration: InputDecoration(hintText: "Coupon code"),
-                          style: Theme.of(context).textTheme.bodyText1,
+              if (cartController.carts.isNotEmpty)
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    color: Colors.white,
+                    padding: EdgeInsets.only(
+                      left: 20,
+                      top: 10,
+                      right: 20,
+                      bottom: 10,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Flexible(
+                          child: TextField(
+                            cursorColor: AppTheme.color1,
+                            cursorWidth: 2.0,
+                            cursorHeight: 20.0,
+                            controller: discountController,
+                            decoration: InputDecoration(
+                              hintText: "Coupon code",
+                            ),
+                            style: Theme.of(context).textTheme.bodyText1,
+                          ),
                         ),
+                        SizedBox(
+                          width: 35.0,
+                        ),
+                        Flexible(
+                          child: TextButton(
+                            style: TextButton.styleFrom(
+                              backgroundColor: AppTheme.color1,
+                              primary: Colors.black,
+                              padding: EdgeInsets.symmetric(
+                                vertical: 4.0,
+                                horizontal: 8.0,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(35.0),
+                              ),
+                              shadowColor: Colors.black.withOpacity(.2),
+                            ),
+                            onPressed: () async {
+                              if (discountController.text.isNotEmpty) {
+                                int discount = await cartController.applyCoupon(
+                                  context,
+                                  discountController.text,
+                                  cartController.getTotalCartPrice(),
+                                );
+                                if (discount != null) {
+                                  setState(() {
+                                    cartController.isCouponeUsed.value = true;
+                                    cartController.discountPrice.value =
+                                        discount;
+                                  });
+                                }
+                              }
+                            },
+                            child: Text(
+                              'Apply Coupon',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: cartController.carts.isEmpty
+          ? SizedBox()
+          : BottomAppBar(
+              child: Obx(
+                () => Container(
+                  height: cartController.discountPrice.value > 0 ? 155 : 130,
+                  color: AppTheme.color1,
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Items',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          Text(
+                            cartController.carts.length.toString(),
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
                       ),
                       SizedBox(
-                        width: 35.0,
+                        height: 5,
                       ),
-                      Flexible(
+                      if (cartController.isCouponeUsed.value)
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Discount',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            Text(
+                              '\৳ ${cartController.discountPrice.toString()}',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Total',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          Text(
+                            '\৳ ${cartController.getTotalCartPrice() - cartController.discountPrice.value}',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Container(
+                        width: Get.width / 1.5,
                         child: TextButton(
                           style: TextButton.styleFrom(
-                            backgroundColor: AppTheme.color1,
+                            backgroundColor: Colors.white,
                             primary: Colors.black,
                             padding: EdgeInsets.symmetric(
                               vertical: 4.0,
@@ -437,145 +471,38 @@ class CartPage extends StatelessWidget {
                             ),
                             shadowColor: Colors.black.withOpacity(.2),
                           ),
-                          // onPressed: () async {
-                          //   if (dicountController.text.isNotEmpty) {
-                          //     int dicount = await _cartState.applyCoupon(
-                          //       context,
-                          //       dicountController.text,
-                          //       _cartState.getCartPrice(
-                          //         carts: snapshot.data,
-                          //       ),
-                          //     );
-                          //     if (dicount != null) {
-                          //       // setState(() {
-                          //       //   isCouponeUsed = true;
-                          //       //   dicountPrice = dicount;
-                          //       // });
-                          //     }
-                          //   }
-                          // },
-                          child: Text(
-                            'Apply Coupon',
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
+                          onPressed: () {
+                            Get.to(
+                              PaymentPage(),
+                            );
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Proceed to Checkout',
+                                style: TextStyle(
+                                  color: Colors.black54,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 8.0,
+                              ),
+                              Icon(
+                                Icons.trending_flat,
+                                color: Colors.black54,
+                                size: 30,
+                              ),
+                            ],
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        child: Obx(
-          () => Container(
-            height: 130,
-            color: AppTheme.color1,
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Items',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Text(
-                      cartController.carts.length.toString(),
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Total',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Text(
-                      '\৳ ${cartController.getTotalCartPrice()}',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 8,
-                ),
-                Container(
-                  width: Get.width / 1.5,
-                  child: TextButton(
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      primary: Colors.black,
-                      padding: EdgeInsets.symmetric(
-                        vertical: 4.0,
-                        horizontal: 8.0,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(35.0),
-                      ),
-                      shadowColor: Colors.black.withOpacity(.2),
-                    ),
-                    onPressed: () {
-                      Get.to(
-                        PaymentPage(),
-                      );
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Proceed to Checkout',
-                          style: TextStyle(
-                            color: Colors.black54,
-                            fontSize: 14,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 8.0,
-                        ),
-                        Icon(
-                          Icons.trending_flat,
-                          color: Colors.black54,
-                          size: 30,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
             ),
-          ),
-        ),
-      ),
     );
   }
 }

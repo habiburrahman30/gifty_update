@@ -140,14 +140,14 @@ class OrderPage extends StatelessWidget {
                               );
                             },
                             child: Container(
-                              height: 130,
+                              height: 100,
                               margin: EdgeInsets.symmetric(
                                 horizontal: 20.0,
                                 vertical: 10.0,
                               ),
                               padding: EdgeInsets.symmetric(
                                 horizontal: 15.0,
-                                vertical: 10.0,
+                                // vertical: 10.0,
                               ),
                               decoration: BoxDecoration(
                                 color: AppTheme.color1.withOpacity(0.9),
@@ -215,7 +215,10 @@ class OrderPage extends StatelessWidget {
                                                 vertical: 3.0,
                                               ),
                                               decoration: BoxDecoration(
-                                                color: Colors.green[400],
+                                                color: item['status'] ==
+                                                        'Delivered'
+                                                    ? Colors.green[400]
+                                                    : Colors.amber[600],
                                                 borderRadius:
                                                     BorderRadius.circular(3),
                                               ),

@@ -826,9 +826,7 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
           onPressed: () {
-            Get.to(
-              CartPage(),
-            );
+            Get.to(() => CartPage());
           },
         ),
       ),

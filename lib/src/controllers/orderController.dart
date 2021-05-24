@@ -28,6 +28,8 @@ class OrderController extends GetxController {
   final userDateReady = false.obs;
   final cashOnDelivery = false.obs;
 
+  final dPrice = 0;
+
   void manageCashOnDelivery() {
     cashOnDelivery.toggle();
   }
@@ -44,6 +46,12 @@ class OrderController extends GetxController {
     sendAnonymous.toggle();
     if (sendAnonymous.value == false) {
       setData();
+    }
+  }
+
+  void discountPrice() {
+    if (_cartC.discountPrice.value > 0) {
+      final dPrice = _cartC.getTotalCartPrice() - _cartC.discountPrice.value;
     }
   }
 
@@ -92,6 +100,9 @@ class OrderController extends GetxController {
       'senderName': senderName.value ?? null,
       'senderEmail': senderEmail.value ?? null,
       'senderPhone': senderPhone.value ?? null,
+      'discountPrice':
+          _cartC.getTotalCartPrice() - _cartC.discountPrice.value ?? null,
+      'discount': _cartC.discountPrice.value ?? null,
       'orderItems': getCartItems(),
       'status': 'Pending',
       'orderId': Uuid().v1(),

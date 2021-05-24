@@ -55,7 +55,7 @@ class OrderItemsPage extends StatelessWidget {
                             width: 1,
                             color: Color(0xFFedeaf2),
                           ),
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(10),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
