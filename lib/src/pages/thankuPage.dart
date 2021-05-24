@@ -69,15 +69,27 @@ class ThankuPage extends StatelessWidget {
                   )
                 ],
               ),
-              child: RaisedButton(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 30,
-                  vertical: 8,
+              child: TextButton(
+                // padding: EdgeInsets.symmetric(
+                //   horizontal: 30,
+                //   vertical: 8,
+                // ),
+                // shape: RoundedRectangleBorder(
+                //   borderRadius: BorderRadius.circular(20),
+                // ),
+                // color: AppTheme.color1,
+                style: TextButton.styleFrom(
+                  // backgroundColor: AppTheme.color1,
+                  backgroundColor: AppTheme.color1,
+                  primary: Colors.white,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 30,
+                    vertical: 8,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(35.0),
+                  ),
                 ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                color: AppTheme.color1,
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -91,8 +103,8 @@ class ThankuPage extends StatelessWidget {
                   ],
                 ),
                 onPressed: () {
-                  Get.to(
-                    HomePage(),
+                  Get.offAll(
+                    () => HomePage(),
                   );
                 },
               ),
