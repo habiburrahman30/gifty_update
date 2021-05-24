@@ -28,6 +28,15 @@ class _PaymentPageState extends State<PaymentPage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
+        title: Text(
+          'Checkout',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
         iconTheme: IconThemeData(
           color: Colors.black,
         ),
