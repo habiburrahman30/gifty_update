@@ -32,8 +32,6 @@ class _PaymentPageState extends State<PaymentPage> {
           'Checkout',
           style: TextStyle(
             color: Colors.black,
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
           ),
         ),
         centerTitle: true,

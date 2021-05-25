@@ -15,8 +15,8 @@ class Aboutgifty extends StatelessWidget {
         title: Text(
           'About Gifty',
           style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
+            // fontSize: 22,
+            // fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
         ),

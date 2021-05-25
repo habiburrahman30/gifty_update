@@ -22,8 +22,8 @@ class OrderPage extends StatelessWidget {
         title: Text(
           'My Order',
           style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
+            // fontSize: 22,
+            // fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
         ),

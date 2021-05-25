@@ -18,8 +18,8 @@ class NotificationsPage extends StatelessWidget {
         title: Text(
           'Notifications',
           style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
+            // fontSize: 22,
+            // fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
         ),

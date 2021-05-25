@@ -25,6 +25,32 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0.5,
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(
+          color: Colors.black,
+        ),
+        title: Text(
+          'My Cart',
+          style: TextStyle(
+            // fontSize: 22,
+            // fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+        centerTitle: true,
+        actions: [
+          Icon(
+            Icons.shopping_bag_outlined,
+            size: 28,
+            color: Colors.black,
+          ),
+          SizedBox(
+            width: 20.0,
+          ),
+        ],
+      ),
       body: Container(
         child: Obx(
           () => Stack(
@@ -258,42 +284,6 @@ class _CartPageState extends State<CartPage> {
                           ),
                         ],
                       ),
-              ),
-              Align(
-                alignment: Alignment.topCenter,
-                child: Container(
-                  color: Colors.white,
-                  padding: EdgeInsets.only(
-                    left: 20,
-                    top: 35,
-                    right: 20,
-                    bottom: 20,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Get.back();
-                        },
-                        child: Icon(
-                          Icons.arrow_back,
-                        ),
-                      ),
-                      Text(
-                        'My Cart',
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Icon(
-                        Icons.shopping_bag_outlined,
-                        size: 30,
-                      ),
-                    ],
-                  ),
-                ),
               ),
               if (cartController.carts.isNotEmpty)
                 Align(
